@@ -1,0 +1,13 @@
+{
+  "query": {
+    "type": "terminal",
+    "service": "text",
+    "parameters": {
+      "operator": "exact_match",
+      "negation": false,
+      "value": "RNA",
+      "attribute": "entity_poly.rcsb_entity_polymer_type"
+    }
+  },
+  "return_type": "entry"
+}

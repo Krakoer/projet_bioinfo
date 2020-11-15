@@ -1,0 +1,403 @@
+HEADER    RNA                                     27-JUL-05   2AGN              
+TITLE     FITTING OF HEPATITIS C VIRUS INTERNAL RIBOSOME ENTRY SITE DOMAINS INTO
+TITLE    2 THE 15 A CRYO-EM MAP OF A HCV IRES-80S RIBOSOME (H. SAPIENS) COMPLEX 
+COMPND    MOL_ID: 1;                                                            
+COMPND   2 MOLECULE: HCV-1B IRES RNA SUB-DOMAIN IIID;                           
+COMPND   3 CHAIN: A;                                                            
+COMPND   4 ENGINEERED: YES;                                                     
+COMPND   5 MOL_ID: 2;                                                           
+COMPND   6 MOLECULE: HCV IRES SUB-DOMAIN IIIB;                                  
+COMPND   7 CHAIN: B;                                                            
+COMPND   8 ENGINEERED: YES;                                                     
+COMPND   9 MOL_ID: 3;                                                           
+COMPND  10 MOLECULE: HCV IRES DOMAIN II;                                        
+COMPND  11 CHAIN: C;                                                            
+COMPND  12 ENGINEERED: YES;                                                     
+COMPND  13 MOL_ID: 4;                                                           
+COMPND  14 MOLECULE: 6 NT A-RNA HELIX;                                          
+COMPND  15 CHAIN: D;                                                            
+COMPND  16 ENGINEERED: YES;                                                     
+COMPND  17 MOL_ID: 5;                                                           
+COMPND  18 MOLECULE: HCV IRES IIIABC;                                           
+COMPND  19 CHAIN: E;                                                            
+COMPND  20 ENGINEERED: YES                                                      
+SOURCE    MOL_ID: 1;                                                            
+SOURCE   2 SYNTHETIC: YES;                                                      
+SOURCE   3 ORGANISM_SCIENTIFIC: SYNTHETIC CONSTRUCT;                            
+SOURCE   4 ORGANISM_TAXID: 32630;                                               
+SOURCE   5 MOL_ID: 2;                                                           
+SOURCE   6 SYNTHETIC: YES;                                                      
+SOURCE   7 ORGANISM_SCIENTIFIC: SYNTHETIC CONSTRUCT;                            
+SOURCE   8 ORGANISM_TAXID: 32630;                                               
+SOURCE   9 MOL_ID: 3;                                                           
+SOURCE  10 SYNTHETIC: YES;                                                      
+SOURCE  11 ORGANISM_SCIENTIFIC: SYNTHETIC CONSTRUCT;                            
+SOURCE  12 ORGANISM_TAXID: 32630;                                               
+SOURCE  13 MOL_ID: 4;                                                           
+SOURCE  14 SYNTHETIC: YES;                                                      
+SOURCE  15 ORGANISM_SCIENTIFIC: SYNTHETIC CONSTRUCT;                            
+SOURCE  16 ORGANISM_TAXID: 32630;                                               
+SOURCE  17 MOL_ID: 5;                                                           
+SOURCE  18 SYNTHETIC: YES;                                                      
+SOURCE  19 ORGANISM_SCIENTIFIC: SYNTHETIC CONSTRUCT;                            
+SOURCE  20 ORGANISM_TAXID: 32630                                                
+KEYWDS    HCV, IRES, RNA                                                        
+EXPDTA    ELECTRON MICROSCOPY                                                   
+MDLTYP    P ATOMS ONLY, CHAIN A, B, C, D, E                                     
+AUTHOR    D.BOEHRINGER,R.THERMANN,A.OSTARECK-LEDERER,J.D.LEWIS,H.STARK          
+REVDAT   4   18-DEC-19 2AGN    1       SOURCE REMARK                            
+REVDAT   3   18-DEC-13 2AGN    1       ATOM   SEQRES VERSN                      
+REVDAT   2   24-FEB-09 2AGN    1       VERSN                                    
+REVDAT   1   25-JUL-06 2AGN    0                                                
+JRNL        AUTH   D.BOEHRINGER,R.THERMANN,A.OSTARECK-LEDERER,J.D.LEWIS,H.STARK 
+JRNL        TITL   STRUCTURE OF THE HEPATITIS C VIRUS IRES BOUND TO THE HUMAN   
+JRNL        TITL 2 80S RIBOSOME: REMODELING OF THE HCV IRES                     
+JRNL        REF    STRUCTURE                     V.  13  1695 2005              
+JRNL        REFN                   ISSN 0969-2126                               
+JRNL        PMID   16271893                                                     
+JRNL        DOI    10.1016/J.STR.2005.08.008                                    
+REMARK   2                                                                      
+REMARK   2 RESOLUTION.   15.00 ANGSTROMS.                                       
+REMARK   3                                                                      
+REMARK   3 REFINEMENT.                                                          
+REMARK   3   SOFTWARE PACKAGES      : IMAGIC, AMIRA                             
+REMARK   3   RECONSTRUCTION SCHEMA  : NULL                                      
+REMARK   3                                                                      
+REMARK   3 EM MAP-MODEL FITTING AND REFINEMENT                                  
+REMARK   3   PDB ENTRY                    : 1P5P                                
+REMARK   3   REFINEMENT SPACE             : REAL                                
+REMARK   3   REFINEMENT PROTOCOL          : NULL                                
+REMARK   3   REFINEMENT TARGET            : NULL                                
+REMARK   3   OVERALL ANISOTROPIC B VALUE  : NULL                                
+REMARK   3                                                                      
+REMARK   3 FITTING PROCEDURE : NULL                                             
+REMARK   3                                                                      
+REMARK   3 EM IMAGE RECONSTRUCTION STATISTICS                                   
+REMARK   3   NOMINAL PIXEL SIZE (ANGSTROMS)    : 3.600                          
+REMARK   3   ACTUAL PIXEL SIZE  (ANGSTROMS)    : NULL                           
+REMARK   3   EFFECTIVE RESOLUTION (ANGSTROMS)  : 15.00                          
+REMARK   3   NUMBER OF PARTICLES               : 24100                          
+REMARK   3   CTF CORRECTION METHOD             : NULL                           
+REMARK   3                                                                      
+REMARK   3 EM RECONSTRUCTION MAGNIFICATION CALIBRATION: NULL                    
+REMARK   3                                                                      
+REMARK   3 OTHER DETAILS: THIS ENTRY CONTAINS ONLY PHOSPHORUS ATOM IN THE       
+REMARK   3  COORDINATE.                                                         
+REMARK   4                                                                      
+REMARK   4 2AGN COMPLIES WITH FORMAT V. 3.30, 13-JUL-11                         
+REMARK 100                                                                      
+REMARK 100 THIS ENTRY HAS BEEN PROCESSED BY PDBJ.                               
+REMARK 100 THE DEPOSITION ID IS D_1000033870.                                   
+REMARK 245                                                                      
+REMARK 245 EXPERIMENTAL DETAILS                                                 
+REMARK 245   RECONSTRUCTION METHOD          : SINGLE PARTICLE                   
+REMARK 245   SPECIMEN TYPE                  : VITREOUS ICE (CRYO EM)            
+REMARK 245                                                                      
+REMARK 245 ELECTRON MICROSCOPE SAMPLE                                           
+REMARK 245   SAMPLE TYPE                    : PARTICLE                          
+REMARK 245   PARTICLE TYPE                  : POINT                             
+REMARK 245   NAME OF SAMPLE                 : HCV IRES-80S RIBOSOME COMPLEX     
+REMARK 245   SAMPLE CONCENTRATION (MG ML-1) : NULL                              
+REMARK 245   SAMPLE SUPPORT DETAILS         : PERFORATED CORBON FOIL ON A       
+REMARK 245                                    COPPER GRID                       
+REMARK 245   SAMPLE VITRIFICATION DETAILS   : PLUNGING INTO LIQUID ETHANE       
+REMARK 245   SAMPLE BUFFER                  : NULL                              
+REMARK 245   PH                             : 8.10                              
+REMARK 245   SAMPLE DETAILS                 : NULL                              
+REMARK 245                                                                      
+REMARK 245 DATA ACQUISITION                                                     
+REMARK 245   DATE OF EXPERIMENT                : 01-OCT-03                      
+REMARK 245   NUMBER OF MICROGRAPHS-IMAGES      : NULL                           
+REMARK 245   TEMPERATURE (KELVIN)              : 77.00                          
+REMARK 245   MICROSCOPE MODEL                  : FEI/PHILIPS CM200FEG           
+REMARK 245   DETECTOR TYPE                     : GENERIC FILM                   
+REMARK 245   MINIMUM DEFOCUS (NM)              : 2000.00                        
+REMARK 245   MAXIMUM DEFOCUS (NM)              : 4000.00                        
+REMARK 245   MINIMUM TILT ANGLE (DEGREES)      : 0.00                           
+REMARK 245   MAXIMUM TILT ANGLE (DEGREES)      : 0.00                           
+REMARK 245   NOMINAL CS                        : 2.00                           
+REMARK 245   IMAGING MODE                      : BRIGHT FIELD                   
+REMARK 245   ELECTRON DOSE (ELECTRONS NM**-2)  : 20.00                          
+REMARK 245   ILLUMINATION MODE                 : FLOOD BEAM                     
+REMARK 245   NOMINAL MAGNIFICATION             : 50000                          
+REMARK 245   CALIBRATED MAGNIFICATION          : 50000                          
+REMARK 245   SOURCE                            : FIELD EMISSION GUN             
+REMARK 245   ACCELERATION VOLTAGE (KV)         : 200                            
+REMARK 245   IMAGING DETAILS                   : NULL                           
+REMARK 247                                                                      
+REMARK 247 ELECTRON MICROSCOPY                                                  
+REMARK 247  THE COORDINATES IN THIS ENTRY WERE GENERATED FROM ELECTRON          
+REMARK 247  MICROSCOPY DATA. PROTEIN DATA BANK CONVENTIONS REQUIRE              
+REMARK 247  THAT CRYST1 AND SCALE RECORDS BE INCLUDED, BUT THE VALUES           
+REMARK 247  ON THESE RECORDS ARE MEANINGLESS EXCEPT FOR THE CALCULATION         
+REMARK 247  OF THE STRUCTURE FACTORS.                                           
+REMARK 300                                                                      
+REMARK 300 BIOMOLECULE: 1                                                       
+REMARK 300 SEE REMARK 350 FOR THE AUTHOR PROVIDED AND/OR PROGRAM                
+REMARK 300 GENERATED ASSEMBLY INFORMATION FOR THE STRUCTURE IN                  
+REMARK 300 THIS ENTRY. THE REMARK MAY ALSO PROVIDE INFORMATION ON               
+REMARK 300 BURIED SURFACE AREA.                                                 
+REMARK 350                                                                      
+REMARK 350 COORDINATES FOR A COMPLETE MULTIMER REPRESENTING THE KNOWN           
+REMARK 350 BIOLOGICALLY SIGNIFICANT OLIGOMERIZATION STATE OF THE                
+REMARK 350 MOLECULE CAN BE GENERATED BY APPLYING BIOMT TRANSFORMATIONS          
+REMARK 350 GIVEN BELOW.  BOTH NON-CRYSTALLOGRAPHIC AND                          
+REMARK 350 CRYSTALLOGRAPHIC OPERATIONS ARE GIVEN.                               
+REMARK 350                                                                      
+REMARK 350 BIOMOLECULE: 1                                                       
+REMARK 350 AUTHOR DETERMINED BIOLOGICAL UNIT: PENTAMERIC                        
+REMARK 350 APPLY THE FOLLOWING TO CHAINS: A, B, C, D, E                         
+REMARK 350   BIOMT1   1  1.000000  0.000000  0.000000        0.00000            
+REMARK 350   BIOMT2   1  0.000000  1.000000  0.000000        0.00000            
+REMARK 350   BIOMT3   1  0.000000  0.000000  1.000000        0.00000            
+REMARK 465                                                                      
+REMARK 465 MISSING RESIDUES                                                     
+REMARK 465 THE FOLLOWING RESIDUES WERE NOT LOCATED IN THE                       
+REMARK 465 EXPERIMENT. (M=MODEL NUMBER; RES=RESIDUE NAME; C=CHAIN               
+REMARK 465 IDENTIFIER; SSSEQ=SEQUENCE NUMBER; I=INSERTION CODE.)                
+REMARK 465                                                                      
+REMARK 465   M RES C SSSEQI                                                     
+REMARK 465       G A     1                                                      
+REMARK 465       G B     1                                                      
+REMARK 465       U B    15                                                      
+REMARK 465       U B    16                                                      
+REMARK 465       C B    17                                                      
+REMARK 465       G B    18                                                      
+REMARK 465       G C     1                                                      
+REMARK 465       G E     1                                                      
+REMARK 465       G E    11                                                      
+REMARK 465       U E    12                                                      
+REMARK 465       G E    13                                                      
+REMARK 465       A E    14                                                      
+REMARK 465       G E    15                                                      
+REMARK 465       U E    16                                                      
+REMARK 465       G E    29                                                      
+REMARK 465       A E    30                                                      
+REMARK 465       A E    31                                                      
+REMARK 465       A E    32                                                      
+REMARK 465       U E    44                                                      
+REMARK 465       C E    53                                                      
+REMARK 900                                                                      
+REMARK 900 RELATED ENTRIES                                                      
+REMARK 900 RELATED ID: EMD-1138   RELATED DB: EMDB                              
+DBREF  2AGN A    1    29  PDB    2AGN     2AGN             1     29             
+DBREF  2AGN B    1    30  PDB    2AGN     2AGN             1     30             
+DBREF  2AGN C    1    77  PDB    2AGN     2AGN             1     77             
+DBREF  2AGN D    2    15  PDB    2AGN     2AGN             2     15             
+DBREF  2AGN E    1    53  PDB    2AGN     2AGN             1     53             
+SEQRES   1 A   29    G   G   C   C   G   A   G   U   A   G   U   G   U          
+SEQRES   2 A   29    U   G   G   G   U   C   G   C   G   A   A   A   G          
+SEQRES   3 A   29    G   C   C                                                  
+SEQRES   1 B   30    G   G   C   G   C   U   C   A   A   U   G   C   U          
+SEQRES   2 B   30    C   U   U   C   G   G   A   G   A   C   G   A   C          
+SEQRES   3 B   30    C   G   C   C                                              
+SEQRES   1 C   77    G   G   C   U   G   U   G   A   G   G   A   A   C          
+SEQRES   2 C   77    U   A   C   U   G   U   C   U   U   C   A   C   G          
+SEQRES   3 C   77    C   A   G   A   A   A   G   C   G   U   C   U   A          
+SEQRES   4 C   77    G   C   C   A   U   G   G   C   G   U   U   A   G          
+SEQRES   5 C   77    U   A   U   G   A   G   U   G   U   C   G   U   G          
+SEQRES   6 C   77    C   A   G   C   C   U   C   C   A   G   C   C              
+SEQRES   1 D   14    C   C   C   G   G   G   G   C   C   C   G   G   G          
+SEQRES   2 D   14    G                                                          
+SEQRES   1 E   53    G   G   C   G   G   A   A   C   C   G   G   U   G          
+SEQRES   2 E   53    A   G   U   A   C   A   C   C   G   G   A   A   U          
+SEQRES   3 E   53    C   C   G   A   A   A   G   G   A   U   U   U   G          
+SEQRES   4 E   53    G   G   C   G   U   G   C   C   C   C   C   G   C          
+SEQRES   5 E   53    C                                                          
+CRYST1    1.000    1.000    1.000  90.00  90.00  90.00 P 1           1          
+ORIGX1      1.000000  0.000000  0.000000        0.00000                         
+ORIGX2      0.000000  1.000000  0.000000        0.00000                         
+ORIGX3      0.000000  0.000000  1.000000        0.00000                         
+SCALE1      1.000000  0.000000  0.000000        0.00000                         
+SCALE2      0.000000  1.000000  0.000000        0.00000                         
+SCALE3      0.000000  0.000000  1.000000        0.00000                         
+ATOM      1  P     G A   2     105.065 261.399 213.192  1.00  0.00           P  
+ATOM      2  P     C A   3     101.337 257.130 212.852  1.00  0.00           P  
+ATOM      3  P     C A   4      98.458 253.008 209.489  1.00  0.00           P  
+ATOM      4  P     G A   5      98.306 249.522 203.405  1.00  0.00           P  
+ATOM      5  P     A A   6     103.002 247.330 200.991  1.00  0.00           P  
+ATOM      6  P     G A   7     100.445 244.530 206.790  1.00  0.00           P  
+ATOM      7  P     U A   8     103.877 241.200 208.459  1.00  0.00           P  
+ATOM      8  P     A A   9     108.464 240.957 203.364  1.00  0.00           P  
+ATOM      9  P     G A  10     112.881 242.027 201.896  1.00  0.00           P  
+ATOM     10  P     U A  11     118.031 242.401 205.507  1.00  0.00           P  
+ATOM     11  P     G A  12     120.670 241.989 211.198  1.00  0.00           P  
+ATOM     12  P     U A  13     121.657 238.316 214.966  1.00  0.00           P  
+ATOM     13  P     U A  14     122.811 233.334 216.930  1.00  0.00           P  
+ATOM     14  P     G A  15     120.389 228.470 212.569  1.00  0.00           P  
+ATOM     15  P     G A  16     115.718 223.578 212.124  1.00  0.00           P  
+ATOM     16  P     G A  17     109.694 226.325 215.157  1.00  0.00           P  
+ATOM     17  P     U A  18     110.659 228.565 208.087  1.00  0.00           P  
+ATOM     18  P     C A  19     106.072 233.195 209.880  1.00  0.00           P  
+ATOM     19  P     G A  20     105.567 236.304 214.147  1.00  0.00           P  
+ATOM     20  P     C A  21     106.603 241.138 217.914  1.00  0.00           P  
+ATOM     21  P     G A  22     110.298 246.482 217.625  1.00  0.00           P  
+ATOM     22  P     A A  23     110.050 250.328 213.323  1.00  0.00           P  
+ATOM     23  P     A A  24     109.459 254.870 209.185  1.00  0.00           P  
+ATOM     24  P     A A  25     110.106 258.679 203.967  1.00  0.00           P  
+ATOM     25  P     G A  26     110.177 260.663 198.196  1.00  0.00           P  
+ATOM     26  P     G A  27     105.199 261.224 195.050  1.00  0.00           P  
+ATOM     27  P     C A  28      98.686 262.035 196.307  1.00  0.00           P  
+ATOM     28  P     C A  29      93.624 262.072 200.115  1.00  0.00           P  
+TER      29        C A  29                                                      
+ATOM     30  P     G B   2      67.305 307.446 276.747  1.00  4.86           P  
+ATOM     31  P     C B   3      66.111 306.572 270.930  1.00  4.13           P  
+ATOM     32  P     G B   4      67.997 305.803 265.508  1.00  3.40           P  
+ATOM     33  P     C B   5      73.182 306.038 262.096  1.00  2.75           P  
+ATOM     34  P     U B   6      78.647 305.456 260.674  1.00  2.28           P  
+ATOM     35  P     C B   7      84.253 303.239 261.987  1.00  1.82           P  
+ATOM     36  P     A B   8      87.757 299.979 265.989  1.00  1.66           P  
+ATOM     37  P     A B   9      88.628 296.746 269.708  1.00  1.43           P  
+ATOM     38  P     U B  10      88.318 294.828 263.191  1.00  1.52           P  
+ATOM     39  P     G B  11      86.760 288.220 264.146  1.00  1.19           P  
+ATOM     40  P     C B  12      86.964 287.287 269.500  1.00  1.06           P  
+ATOM     41  P     U B  13      83.928 284.668 273.601  1.00  1.35           P  
+ATOM     42  P     C B  14      79.898 280.432 274.723  1.00  1.87           P  
+ATOM     43  P     G B  19      79.696 280.254 257.714  1.00  2.66           P  
+ATOM     44  P     A B  20      74.248 283.696 259.008  1.00  2.28           P  
+ATOM     45  P     G B  21      70.431 286.121 263.031  1.00  2.30           P  
+ATOM     46  P     A B  22      69.462 289.805 267.215  1.00  2.45           P  
+ATOM     47  P     C B  23      71.324 294.209 271.493  1.00  2.47           P  
+ATOM     48  P     G B  24      75.088 297.639 274.784  1.00  2.17           P  
+ATOM     49  P     A B  25      77.488 301.823 277.508  1.00  1.94           P  
+ATOM     50  P     C B  26      80.591 307.341 277.151  1.00  1.69           P  
+ATOM     51  P     C B  27      82.406 311.982 275.262  1.00  1.33           P  
+ATOM     52  P     G B  28      79.973 316.092 270.624  1.00  1.78           P  
+ATOM     53  P     C B  29      77.048 319.393 267.676  1.00  3.04           P  
+ATOM     54  P     C B  30      71.492 321.564 267.340  1.00  4.41           P  
+TER      55        C B  30                                                      
+ATOM     56  P     G C   2     129.054 238.806 144.497  1.00  4.61           P  
+ATOM     57  P     C C   3     135.781 240.136 143.642  1.00  4.05           P  
+ATOM     58  P     U C   4     141.134 238.059 144.184  1.00  3.19           P  
+ATOM     59  P     G C   5     144.623 232.786 143.225  1.00  2.39           P  
+ATOM     60  P     U C   6     144.860 226.450 146.041  1.00  2.80           P  
+ATOM     61  P     G C   7     147.518 223.370 140.416  1.00  2.83           P  
+ATOM     62  P     A C   8     145.022 221.837 136.433  1.00  2.47           P  
+ATOM     63  P     G C   9     142.448 219.280 132.092  1.00  2.63           P  
+ATOM     64  P     G C  10     140.742 219.695 126.708  1.00  2.87           P  
+ATOM     65  P     A C  11     141.846 223.355 121.404  1.00  3.15           P  
+ATOM     66  P     A C  12     143.722 228.835 118.239  1.00  3.17           P  
+ATOM     67  P     C C  13     148.105 233.996 119.851  1.00  3.26           P  
+ATOM     68  P     U C  14     153.703 232.836 123.818  1.00  3.97           P  
+ATOM     69  P     A C  15     156.916 237.168 118.941  1.00  2.12           P  
+ATOM     70  P     C C  16     154.570 242.229 118.604  1.00  1.88           P  
+ATOM     71  P     U C  17     153.192 246.447 122.579  1.00  1.90           P  
+ATOM     72  P     G C  18     154.092 248.012 127.883  1.00  1.81           P  
+ATOM     73  P     U C  19     156.812 247.187 133.937  1.00  1.83           P  
+ATOM     74  P     C C  20     159.919 243.014 137.350  1.00  1.86           P  
+ATOM     75  P     U C  21     163.609 239.135 138.558  1.00  1.94           P  
+ATOM     76  P     U C  22     169.264 237.028 136.740  1.00  1.99           P  
+ATOM     77  P     C C  23     174.256 236.899 133.067  1.00  2.09           P  
+ATOM     78  P     A C  24     178.096 239.070 130.051  1.00  2.18           P  
+ATOM     79  P     C C  25     181.116 244.960 129.014  1.00  2.21           P  
+ATOM     80  P     G C  26     181.027 251.395 129.253  1.00  2.10           P  
+ATOM     81  P     C C  27     180.289 255.381 134.163  1.00  2.29           P  
+ATOM     82  P     A C  28     179.087 258.652 139.710  1.00  2.23           P  
+ATOM     83  P     G C  29     178.858 257.501 146.268  1.00  1.75           P  
+ATOM     84  P     A C  30     180.225 254.239 151.462  1.00  1.50           P  
+ATOM     85  P     A C  31     182.381 251.178 155.654  1.00  1.45           P  
+ATOM     86  P     A C  32     183.753 246.396 159.518  1.00  1.70           P  
+ATOM     87  P     G C  33     187.081 242.156 162.069  1.00  2.01           P  
+ATOM     88  P     C C  34     193.038 241.013 161.574  1.00  1.93           P  
+ATOM     89  P     G C  35     197.928 242.837 161.375  1.00  1.80           P  
+ATOM     90  P     U C  36     201.738 247.438 163.807  1.00  1.85           P  
+ATOM     91  P     C C  37     202.553 253.413 166.081  1.00  2.05           P  
+ATOM     92  P     U C  38     201.308 258.537 168.849  1.00  2.43           P  
+ATOM     93  P     A C  39     199.027 259.389 174.026  1.00  2.90           P  
+ATOM     94  P     G C  40     196.293 260.412 179.753  1.00  3.67           P  
+ATOM     95  P     C C  41     199.071 254.119 182.602  1.00  4.59           P  
+ATOM     96  P     C C  42     197.494 248.213 180.772  1.00  3.97           P  
+ATOM     97  P     A C  43     191.459 246.906 178.433  1.00  3.86           P  
+ATOM     98  P     U C  44     187.527 247.976 174.647  1.00  3.69           P  
+ATOM     99  P     G C  45     184.785 252.294 169.703  1.00  2.88           P  
+ATOM    100  P     G C  46     186.222 256.789 166.420  1.00  2.24           P  
+ATOM    101  P     C C  47     189.327 259.209 161.727  1.00  1.49           P  
+ATOM    102  P     G C  48     192.358 259.001 157.014  1.00  1.32           P  
+ATOM    103  P     U C  49     194.088 255.510 151.846  1.00  1.44           P  
+ATOM    104  P     U C  50     194.121 249.732 148.997  1.00  1.72           P  
+ATOM    105  P     A C  51     190.521 245.122 148.134  1.00  1.73           P  
+ATOM    106  P     G C  52     191.813 251.070 143.901  1.00  1.89           P  
+ATOM    107  P     U C  53     185.907 249.603 141.535  1.00  1.96           P  
+ATOM    108  P     A C  54     184.922 243.589 142.018  1.00  1.96           P  
+ATOM    109  P     U C  55     180.366 240.565 143.128  1.00  1.93           P  
+ATOM    110  P     G C  56     174.576 242.285 142.945  1.00  1.63           P  
+ATOM    111  P     A C  57     169.603 246.289 142.599  1.00  1.29           P  
+ATOM    112  P     G C  58     166.988 249.476 139.748  1.00  1.43           P  
+ATOM    113  P     U C  59     165.649 251.221 133.169  1.00  1.60           P  
+ATOM    114  P     G C  60     165.287 251.258 128.112  1.00  1.78           P  
+ATOM    115  P     U C  61     164.680 247.110 123.436  1.00  1.86           P  
+ATOM    116  P     C C  62     165.613 240.899 122.082  1.00  2.02           P  
+ATOM    117  P     G C  63     164.932 235.534 122.401  1.00  2.20           P  
+ATOM    118  P     U C  64     163.297 229.334 125.507  1.00  2.62           P  
+ATOM    119  P     G C  65     156.381 229.168 125.567  1.00  2.50           P  
+ATOM    120  P     C C  66     154.854 230.446 129.493  1.00  2.27           P  
+ATOM    121  P     A C  67     151.613 231.454 134.012  1.00  2.13           P  
+ATOM    122  P     G C  68     146.931 234.856 135.008  1.00  1.86           P  
+ATOM    123  P     C C  69     142.575 237.000 132.507  1.00  1.51           P  
+ATOM    124  P     C C  70     137.714 236.948 129.794  1.00  1.86           P  
+ATOM    125  P     U C  71     133.028 233.837 129.457  1.00  2.24           P  
+ATOM    126  P     C C  72     130.123 229.120 132.464  1.00  2.10           P  
+ATOM    127  P     C C  73     129.443 224.573 136.703  1.00  1.82           P  
+ATOM    128  P     A C  74     131.374 222.123 141.834  1.00  1.85           P  
+ATOM    129  P     G C  75     134.349 222.004 147.216  1.00  2.55           P  
+ATOM    130  P     C C  76     137.266 225.761 152.524  1.00  3.65           P  
+ATOM    131  P     C C  77     140.667 230.272 155.632  1.00  5.10           P  
+TER     132        C C  77                                                      
+ATOM    133  P     C D   2     107.017 268.082 217.498  1.00 29.90           P  
+ATOM    134  P     C D   3     103.524 272.552 216.917  1.00 26.21           P  
+ATOM    135  P     C D   4      98.685 275.023 216.684  1.00 26.89           P  
+ATOM    136  P     G D   5      92.947 274.671 217.781  1.00 27.03           P  
+ATOM    137  P     G D   6      88.740 273.107 221.355  1.00 27.64           P  
+ATOM    138  P     G D   7      87.162 269.551 225.747  1.00 20.55           P  
+ATOM    139  P     G D   8      87.840 265.714 230.347  1.00 21.30           P  
+ATOM    140  P     C D   9     103.803 262.664 225.619  1.00 29.90           P  
+ATOM    141  P     C D  10     100.011 258.839 223.747  1.00 26.21           P  
+ATOM    142  P     C D  11      95.689 257.178 220.895  1.00 26.89           P  
+ATOM    143  P     G D  12      91.906 258.370 216.592  1.00 27.03           P  
+ATOM    144  P     G D  13      91.002 260.387 211.297  1.00 27.64           P  
+ATOM    145  P     G D  14      92.965 263.909 207.034  1.00 20.55           P  
+ATOM    146  P     G D  15      96.865 267.341 203.976  1.00 21.30           P  
+TER     147        G D  15                                                      
+ATOM    148  P     G E   2      98.761 268.712 229.372  1.00 55.40           P  
+ATOM    149  P     C E   3     101.980 269.166 234.260  1.00 54.26           P  
+ATOM    150  P     G E   4     103.750 267.502 239.428  1.00 48.34           P  
+ATOM    151  P     G E   5     103.580 263.910 243.858  1.00 45.15           P  
+ATOM    152  P     A E   6     101.437 258.751 247.299  1.00 47.24           P  
+ATOM    153  P     A E   7     103.328 258.905 253.209  1.00 68.61           P  
+ATOM    154  P     C E   8     106.002 259.059 257.566  1.00 69.89           P  
+ATOM    155  P     C E   9     106.592 257.111 263.377  1.00 86.73           P  
+ATOM    156  P     G E  10     105.370 252.365 267.417  1.00102.40           P  
+ATOM    157  P     A E  17     108.991 246.424 257.581  1.00120.40           P  
+ATOM    158  P     C E  18     105.087 248.597 254.313  1.00111.90           P  
+ATOM    159  P     A E  19      98.150 248.262 252.768  1.00105.40           P  
+ATOM    160  P     C E  20      93.515 247.476 253.803  1.00102.10           P  
+ATOM    161  P     C E  21      89.668 247.266 258.692  1.00 96.49           P  
+ATOM    162  P     G E  22      88.920 250.841 263.956  1.00 92.15           P  
+ATOM    163  P     G E  23      90.313 255.739 266.644  1.00 89.91           P  
+ATOM    164  P     A E  24      92.919 260.704 267.909  1.00 80.70           P  
+ATOM    165  P     A E  25      95.198 264.811 264.063  1.00 69.23           P  
+ATOM    166  P     U E  26      95.119 268.026 258.916  1.00 63.56           P  
+ATOM    167  P     C E  27      91.880 269.842 254.986  1.00 57.87           P  
+ATOM    168  P     C E  28      86.535 271.676 253.310  1.00 53.48           P  
+ATOM    169  P     G E  33      77.614 264.385 268.031  1.00 45.08           P  
+ATOM    170  P     G E  34      77.547 260.454 262.802  1.00 50.62           P  
+ATOM    171  P     A E  35      79.443 258.607 257.459  1.00 54.51           P  
+ATOM    172  P     U E  36      83.296 257.275 253.159  1.00 49.62           P  
+ATOM    173  P     U E  37      88.791 256.079 250.877  1.00 40.59           P  
+ATOM    174  P     U E  38      94.711 254.531 251.397  1.00 34.40           P  
+ATOM    175  P     G E  39     100.645 254.033 249.847  1.00 40.16           P  
+ATOM    176  P     G E  40      99.469 250.833 245.311  1.00 37.02           P  
+ATOM    177  P     G E  41      97.789 246.533 241.808  1.00 45.52           P  
+ATOM    178  P     C E  42      99.112 244.459 235.703  1.00 39.55           P  
+ATOM    179  P     G E  43     101.480 243.668 230.318  1.00 44.56           P  
+ATOM    180  P     G E  45     106.668 260.030 231.205  1.00 42.98           P  
+ATOM    181  P     C E  46     101.845 259.975 228.689  1.00 44.38           P  
+ATOM    182  P     C E  47      95.898 258.117 228.982  1.00 38.37           P  
+ATOM    183  P     C E  48      91.211 256.550 231.877  1.00 37.92           P  
+ATOM    184  P     C E  49      88.215 256.715 236.361  1.00 35.50           P  
+ATOM    185  P     C E  50      87.329 259.332 241.461  1.00 36.13           P  
+ATOM    186  P     G E  51      87.687 263.652 244.841  1.00 40.97           P  
+ATOM    187  P     C E  52      89.205 269.237 245.624  1.00 42.73           P  
+TER     188        C E  52                                                      
+MASTER      124    0    0    0    0    0    0    6  183    5    0   19          
+END                                                                             
