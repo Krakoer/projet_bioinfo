@@ -171,7 +171,12 @@ void print_tree(Node *root) {
 
 int main(int argc, char *argv[]) {
     if (argc < 4) {
-        std::cout << "Usage : ./dotbpattern input_tree input_patterns output_path";
+        std::cout << "Usage : ./dotbpattern input_tree input_patterns output_path\n./dotbpattern --help for help\n";
+
+        if (argc >= 2 && argv[1] == (string) "--help") {
+            cout << "Input tree file must be a single line file with a secondary structure in dot bracket notation" << endl
+                 << "Input pattern file must contains one line per pattern, in a dot-brackets notation." << endl;
+        }
         return 1;
     }
 

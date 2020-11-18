@@ -1,3 +1,2 @@
-all: dotb2tree.cpp
-	g++ -o dotb2tree dotb2tree.cpp -I.
+all: dotbpattern.cpp
 	g++ -o dotbpattern dotbpattern.cpp -I.
