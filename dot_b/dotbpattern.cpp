@@ -9,56 +9,42 @@
 using namespace std;
 
 typedef struct Node {
-    bool paired;  // If the node is a base paired or unapired base
+    bool paired;      // If the node is a base paired or unapired base
+    bool pseudoknot;  // If the node is involved in a pseudoknot
+    bool openBP;
     vector<Node *> children;
     Node *parent;
 } Node;
 
-Node *newNode(bool paired, Node *parent) {
+Node *newNode(bool paired, Node *parent, bool pseudo = false, bool openBP = false) {
     Node *temp = new Node;
     temp->paired = paired;
     temp->parent = parent;
+    temp->pseudoknot = pseudo;
+    temp->openBP = openBP;
     return temp;
 }
 
-bool check_from_root(Node *root, Node *pattern) {
-    /*
-    Takes a tree and a pattern, and checks if the pattern matches from the given root
-    */
-    queue<Node *> r, p;  // We use a queue system to go through the tree
-    r.push(root);
-    p.push(pattern);
-    while (!r.empty() && !p.empty()) {
-        int n = r.size();
-        int m = p.size();
-
-        while (n > 0 && m > 0) {
-            Node *n1 = r.front();
-            r.pop();
-            Node *n2 = p.front();
-            p.pop();
-
-            if (n1->paired != n2->paired) {  // If the nodes are different, the pattern dosent match
-                return false;
+bool check_from_node_rec(Node *node, Node *motif) {
+    if (node->parent == nullptr) {
+        return false;
+    } else if (!node->paired && !motif->paired) {
+        return true;
+    } else if (motif->openBP && node->openBP) {
+        return true;
+    } else if (motif->openBP && node->paired) {
+        return true;
+    } else if (motif->paired && node->paired) {
+        if (motif->children.size() == node->children.size()) {
+            for (int i = 0; i < node->children.size(); i++) {
+                if (!check_from_node_rec(node->children[i], motif->children[i])) {
+                    return false;
+                }
             }
-
-            if (n2->children.size() == 0) {  // If the pattern has a base paired leaf, transform the equivalent base paired node of the tree to a leaf
-                n1->children.clear();
-            }
-
-            for (int i = 0; i < n1->children.size(); i++) r.push(n1->children[i]);  // Push children of the nodes to the queue
-            for (int i = 0; i < n2->children.size(); i++) p.push(n2->children[i]);
-            n--;
-            m--;
-        }
-
-        if (n != m) {
-            // if n and m are not both 0, graphs dont match
-            return false;
+            return true;
         }
     }
-    // If p is not empty, it means that at a certain level, the pattern had less children than the given tree, so the graphs dont match
-    return p.empty();
+    return false;
 }
 
 int count_pattern(Node *tree, Node *pattern) {
@@ -76,7 +62,7 @@ int count_pattern(Node *tree, Node *pattern) {
         while (n > 0) {
             Node *p = q.front();
             q.pop();
-            if (p->paired && check_from_root(p, pattern)) {  // We naivly perform a matching test with each base paired node being the root
+            if (p->paired && check_from_node_rec(p, pattern)) {  // We naivly perform a matching test with each base paired node being the root
                 count++;
                 //cout << "Pattern matches !!" << count << endl;
             }
@@ -89,42 +75,70 @@ int count_pattern(Node *tree, Node *pattern) {
     return count;
 }
 
-Node *tree_from_string(string line) {
+// https://stackoverflow.com/questions/5878775/how-to-find-and-replace-string
+std::string ReplaceString(std::string subject, const std::string &search,
+                          const std::string &replace) {
+    size_t pos = 0;
+    while ((pos = subject.find(search, pos)) != std::string::npos) {
+        subject.replace(pos, search.length(), replace);
+        pos += replace.length();
+    }
+    return subject;
+}
+
+Node *tree_from_string(string line, bool motif = false) {
     /*
     Given a dot-bracket string, the function returns the equivalent tree as a netsed Node structure
-    For now, only . and () are considered : & are ignored, and [, ] , { and  } are considered as .
     */
     Node *root = newNode(true, nullptr);
     Node *cur_node = root;
 
-    char unpaired_chars[] = {'.', '[', ']', '{', '}'};
+    string pseudoknot_chars = "[]{}<>";
 
     for (int i = 0; i < line.length(); i++) {  // Go through the string
         char car = line[i];
-        if (car != '&') {                                                                        // & are ignored for now
-            if (find(begin(unpaired_chars), end(unpaired_chars), car) != end(unpaired_chars)) {  // If it is an unpaired base
-                cur_node->children.push_back(newNode(false, cur_node));                          // Push an unpaired base Node
-            } else if (car == '(') {                                                             // If it is a new base paired create a new Node and push it
-                Node *child = newNode(true, cur_node);                                           //
-                cur_node->children.push_back(child);                                             //
-                cur_node = child;                                                                //
-            } else if (car == ')') {                                                             // Finaly, if it is a base paired already created we go up in the tree
+        if (car != '&') {                                                                                            // & are ignored for now
+            if (car == '.') {                                                                                        // If it is an unpaired base
+                cur_node->children.push_back(newNode(false, cur_node, pseudoknot_chars.find(car) != string::npos));  // Push an unpaired base Node, and check if it is involved in a pseudoknot
+            } else if (car == '(') {                                                                                 // If it is a new base paired create a new Node and push it
+                Node *child = newNode(true, cur_node);                                                               //
+                cur_node->children.push_back(child);                                                                 //
+                cur_node = child;                                                                                    //
+            } else if (car == ')') {                                                                                 // Finaly, if it is a base paired already created we go up in the tree
                 cur_node = cur_node->parent;
-            } else {
-                std::cout << "Wrong character encountered : " << car << '\n';
-                return nullptr;
+            } else if (car == '*') {
+                cur_node->openBP = true;
             }
+        } else {
+            std::cout << "Wrong character encountered : " << car << '\n';
+            return nullptr;
         }
     }
-
+    if (motif)
+        return root->children[0];
     return root;
 }
 
-vector<Node *> load_from_file(ifstream *input_file, int line_offset = 0) {
+vector<int> findChaines(string line) {
+    // Return posistions of &
+    vector<int> pos;
+
+    for (int i = 0; i < line.length(); i++) {
+        char car = line[i];
+        if (car == '&') {
+            pos.push_back(i);
+        }
+    }
+
+    return pos;
+}
+
+vector<Node *> load_from_file(ifstream *input_file, int line_offset) {
     /*
     Loads a set of tree from a given file. Each line is considered as a tree, and the optional
     line_offset parameter allows to skip lines at the begining of the file (header for example)
     */
+    cout << line_offset << endl;
     vector<Node *> trees;
     string line;
     for (int i = 0; i < line_offset; i++) {
@@ -143,7 +157,7 @@ void print_tree(Node *root) {
     /*
     Print each layer of the tree : [-] is a base paired and [.] is unpaired
     */
-    if (root == NULL) return;
+    if (root == nullptr) return;
 
     queue<Node *> q;
     q.push(root);
@@ -158,6 +172,9 @@ void print_tree(Node *root) {
                 cout << '-';
             } else {
                 cout << '.';
+            }
+            if (p->openBP) {
+                cout << '*';
             }
             cout << "] ";
 
@@ -193,8 +210,8 @@ int main(int argc, char *argv[]) {
     pattern_file.open(pattern_path, ios::in);
     output_file.open(output_path, ios::out);
 
-    Node *tree = load_from_file(&input_file).back();
-    vector<Node *> patterns = load_from_file(&pattern_file);
+    Node *tree = load_from_file(&input_file, 2).back();
+    vector<Node *> patterns = load_from_file(&pattern_file, 0);
 
     // Close the files
     input_file.close();
