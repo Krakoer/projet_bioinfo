@@ -102,7 +102,7 @@ def treat_motif(dbn_path, out_path, output_path):
                     positions = occurence.strip('()').split(',')[1:]
 
                     motifs_positions.append(
-                        [[int(pos), find_end_pattern(int(pos), motifs[i])] for pos in positions])
+                        [[int(pos)+1, find_end_pattern(int(pos), motifs[i])+1] for pos in positions])
 
                 # print(motifs_positions)
 
@@ -134,16 +134,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-    # because path is object not string
-
-    # print(path_in_str)
-
-# # pattern_file = open("all_sub_1.txt")
-# # pattern = pattern_file.readlines()[44]
-# # pattern_file.close()
-
-# pattern_pos = 5
-
-# draw_structure(structure, [[5, find_end_pattern(5, structure)], [10, 50]], './ouput_varna.png',
-#                '/home/axel/Téléchargements/VARNAv3-93.jar')
