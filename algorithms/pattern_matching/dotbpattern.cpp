@@ -14,6 +14,7 @@ typedef struct Node {
     bool pseudoknot;  // If the node is involved in a pseudoknot
     bool openBP;      // If it is an open base, represented as a (*)
     int pos;          // Position in the string
+    int posPaire;     // Position of the paire, if it is a base paired
     vector<Node *> children;
     Node *parent;
 } Node;
@@ -50,13 +51,13 @@ bool check_from_node_rec(Node *node, Node *motif) {
     return false;
 }
 
-vector<int> find_pattern(Node *tree, Node *pattern) {
+vector<array<int, 2>> find_pattern(Node *tree, Node *pattern) {
     /*
     Count the number of occurences of the given pattern in the given tree and the positions
     */
 
     queue<Node *> q;  // We use a queue system to go through the tree again
-    vector<int> pos;
+    vector<array<int, 2>> pos;
 
     q.push(tree);
 
@@ -67,7 +68,8 @@ vector<int> find_pattern(Node *tree, Node *pattern) {
             Node *p = q.front();
             q.pop();
             if (p->paired && check_from_node_rec(p, pattern)) {  // We naivly perform a matching test with each base paired node being the root
-                pos.push_back(p->pos);
+                array<int, 2> t = {p->pos, p->posPaire};
+                pos.push_back(t);
             }
 
             for (int i = 0; i < p->children.size(); i++) q.push(p->children[i]);
@@ -162,8 +164,10 @@ vector<Node *> tree_from_string(string line, bool motif = false) {
                     Node *child = newNode(true, cur_node, i);                   //
                     cur_node->children.push_back(child);                        //
                     cur_node = child;                                           //
-                } else if (car == ')') {                                        // Finaly, if it is a base paired already created we go up in the tree
+                } else if (car == ')') {                                        //
+                    cur_node->posPaire = i;                                     // Finaly, if it is a base paired already created we go up in the tree
                     cur_node = cur_node->parent;
+
                 } else if (car == '*') {
                     cur_node->openBP = true;
                 } else if (pseudoknot_chars.find(car) != string::npos) {
@@ -296,15 +300,16 @@ int main(int argc, char *argv[]) {
                 output_file << name << "-" << c << "-" << m << '\t';
 
                 for (int p = 0; p < patterns.size(); p++) {
-                    vector<int> positions = find_pattern(chain, patterns[p][0]);  // Considering pattenrs have 1 chaine only
+                    vector<array<int, 2>> positions = find_pattern(chain, patterns[p][0]);  // Considering pattenrs have 1 chaine only
                     if (positions.size() > 0) {
-                        output_file << '(' << p;
+                        // ex : 99:12-19;58-75;
+                        output_file << p << ':';
                         cout << "Pattern n° " << p << " found at pos ";
                         for (int pos = 0; pos < positions.size(); pos++) {
-                            output_file << "," << positions[pos];
-                            cout << positions[pos] << " ";
+                            output_file << positions[pos][0] << '-' << positions[pos][1] << ';';
+                            cout << positions[pos][0] << " ";
                         }
-                        output_file << ")\t";
+                        output_file << "\t";
                         cout << endl;
                     }
                 }

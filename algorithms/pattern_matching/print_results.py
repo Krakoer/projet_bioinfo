@@ -30,7 +30,7 @@ def draw_structure(target, bps, path, varna):
     for i in range(len(bps)):
         for j in range(len(bps[i])):
             auxhighlight.append(
-                f"{bps[i][j][0]}-{bps[i][j][1]}:fill=#FFFFFF,outline={colors[i%3]},radius={16+j*2}")
+                f"{bps[i][j][0]+1}-{bps[i][j][1]+1}:fill=#FFFFFF,outline={colors[i%3]},radius={16+j*2}")
 
     cmd += " -highlightRegion \"{}\"".format(";".join(auxhighlight))
 
@@ -38,7 +38,7 @@ def draw_structure(target, bps, path, varna):
     os.popen(cmd).close()
 
 
-def find_end_pattern(start, seq):
+def find_matching_par(start, seq):
     count = 0
 
     for i in range(start, len(seq)):
@@ -49,6 +49,30 @@ def find_end_pattern(start, seq):
 
         if(count == 0):
             return i
+
+
+def find_intervals(pattern, sequence, start):
+    '''
+    Takes a pattern like ((..).(*)), et db sequence, and the position of the pattenr in the seq
+    Returns the intervals of the seq involved in the pattern
+    '''
+    start_sequence = start
+    pos_sequence = start
+    intervals = []
+
+    for i in range(len(pattern)):
+        if(pattern[i] == '*'):
+            pos_sequence -= 1
+
+            intervals.append([start_sequence, pos_sequence])
+            pos_sequence = find_matching_par(pos_sequence, sequence)
+            start_sequence = pos_sequence
+
+        else:
+            pos_sequence += 1
+
+    intervals.append([start_sequence, pos_sequence-2])
+    return intervals
 
 
 def parse_seq(seq):
@@ -77,43 +101,47 @@ def contains_motif(line):
     return len(line.split('\t')) > 2
 
 
-def treat_motif(dbn_path, out_path, output_path):
+def treat_motif(dbn_path, out_path, motif_path, output_path):
     output = open(out_path)
-    lignes = output.readlines()
+    lignes_output = output.readlines()
     output.close()
 
-    if(any([contains_motif(l) for l in lignes])):
+    if(any([contains_motif(l) for l in lignes_output])):
         dbn = open(dbn_path)
         temp = dbn.readlines()
         structure = temp[2].strip()
         dbn.close()
+        chaines = parse_seq(structure)
 
-        motifs = parse_seq(structure)
+        motifs_file = open(motif_path)
+        motifs = motifs_file.readlines()
+        motifs_file.close()
 
-        assert(len(motifs) == len(lignes))
+        assert(len(chaines) == len(lignes_output))
 
-        for i, ligne in enumerate(lignes):
+        for i, ligne in enumerate(lignes_output):
             if contains_motif(ligne):
                 name = ligne.strip().split('\t')[0]
+
                 motifs_occurence = ligne.strip().split('\t')[1:]
                 motifs_positions = []
 
                 for occurence in motifs_occurence:
-                    positions = occurence.strip('()').split(',')[1:]
+                    motif = motifs[int(occurence.strip().split(':')[0])]
 
-                    motifs_positions.append(
-                        [[int(pos)+1, find_end_pattern(int(pos), motifs[i])+1] for pos in positions])
+                    positions = occurence.split(':')[-1].split(';')[:-1]
 
-                # print(motifs_positions)
+                    motifs_positions += [find_intervals(
+                        motif, chaines[i], int(pos.split('-')[0])) for pos in positions]
 
                 draw_structure(
-                    motifs[i], motifs_positions, f'{output_path}/{name}.png', '/home/axel/Téléchargements/VARNAv3-93.jar')
+                    chaines[i], motifs_positions, f'{output_path}/{name}.png', '/home/axel/Téléchargements/VARNAv3-93.jar')
 
 
 def main():
-    if len(sys.argv) < 4:
+    if len(sys.argv) < 5:
         print(
-            f"Usage : python {sys.argv[0]} output_files dbn_files output_path")
+            f"Usage : python {sys.argv[0]} output_files dbn_files motifs_file output_path")
         return
 
     output_pathlist = [str(path)
@@ -127,7 +155,7 @@ def main():
         if len(dbn_paths) > 0:
             dbn_path = dbn_paths[0]
 
-            treat_motif(dbn_path, out_path, sys.argv[3])
+            treat_motif(dbn_path, out_path, sys.argv[3], sys.argv[4])
         else:
             continue
 
