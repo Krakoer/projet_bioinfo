@@ -23,7 +23,7 @@ def draw_structure(target, bps, path, varna):
 
     cmd = "java -cp {} fr.orsay.lri.varna.applications.VARNAcmd -sequenceDBN \"{}\" -structureDBN \"{}\" -o {}".format(
         varna, seq, target, path)
-    cmd += " -bpStyle simple -algorithm line -resolution 4"
+    cmd += " -bpStyle simple -algorithm radiate -resolution 4"
 
     auxhighlight = []
 
