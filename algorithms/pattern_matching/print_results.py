@@ -100,6 +100,18 @@ def parse_seq(seq):
 def contains_motif(line):
     return len(line.split('\t')) > 2
 
+def treat_xdbn(xdbn_path, out_path, motif_path, output_path):
+    output = open(out_path)
+    lignes_output = output.readline()
+    output.close()
+
+    if(any([contains_motif(l) for l in lignes_output])):
+        xdbn = open(xdbn_path)
+        xdbn_lignes = xdbn.readlines()
+        xdbn.close()
+
+        chaines = [parse_seq(xdbn_lignes[2+2*n]) for n in range((len(xdbn_lignes)-2)//2)]
+
 
 def treat_motif(dbn_path, out_path, motif_path, output_path):
     output = open(out_path)
@@ -141,12 +153,18 @@ def treat_motif(dbn_path, out_path, motif_path, output_path):
 def main():
     if len(sys.argv) < 5:
         print(
-            f"Usage : python {sys.argv[0]} output_files dbn_files motifs_file output_path")
+            f"Usage : python {sys.argv[0]} output_files dbn_files motifs_file output_path [options]\nUse --xdbn option to load xdbn files\n")
         return
+
+    xdbn = any(["--xdbn" in x for x in sys.argv])
 
     output_pathlist = [str(path)
                        for path in Path(sys.argv[1]).glob('**/*.out')]
-    dbn_pathlist = [str(path) for path in Path(sys.argv[2]).glob('**/*.dbn')]
+
+    if xdbn:
+        dbn_pathlist = [str(path) for path in Path(sys.argv[2]).glob('**/*.xdbn')]
+    else:
+        dbn_pathlist = [str(path) for path in Path(sys.argv[2]).glob('**/*.dbn')]
 
     for out_path in tqdm(output_pathlist):
         name = out_path.split('/')[-1].split('.')[0]
@@ -155,7 +173,7 @@ def main():
         if len(dbn_paths) > 0:
             dbn_path = dbn_paths[0]
 
-            treat_motif(dbn_path, out_path, sys.argv[3], sys.argv[4])
+            treat_motif(dbn_path, out_path, sys.argv[3], sys.argv[4], xdbn)
         else:
             continue
 
