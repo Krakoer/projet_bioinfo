@@ -100,24 +100,45 @@ def parse_seq(seq):
 def contains_motif(line):
     return len(line.split('\t')) > 2
 
+
 def treat_xdbn(xdbn_path, out_path, motif_path, output_path):
     output = open(out_path)
-    lignes_output = output.readline()
+    lignes_output = output.readlines()
     output.close()
-    print(lignes_output)
-    
+
     if(any([contains_motif(l) for l in lignes_output])):
         xdbn = open(xdbn_path)
         xdbn_lignes = xdbn.readlines()
         xdbn.close()
 
-        chaines = [parse_seq(xdbn_lignes[2+2*n]) for n in range((len(xdbn_lignes)-2)//2)]
+        chaines = [parse_seq(xdbn_lignes[2*n])
+                   for n in range(1, len(xdbn_lignes)//2+1)]
+
+        #print(chaines)
 
         motifs_file = open(motif_path)
         motifs = motifs_file.readlines()
         motifs_file.close()
 
-        print(sum([len(chaine) for chaine in chaines]) == len(lignes_output))
+        assert(sum([len(chaine) for chaine in chaines]) == len(lignes_output))
+
+        for i, ligne in enumerate(lignes_output):
+            if contains_motif(ligne):
+                name = ligne.strip().split('\t')[0]
+                chain_number = int(name.split('-')[1])
+                subchain_number = int(name.split('-')[2])
+
+                motifs_occurence = ligne.strip().split('\t')[1:]
+
+                motifs_positions = []
+
+                for occurence in motifs_occurence:
+                    motif = motifs[int(occurence.strip().split(':')[0])]
+
+                    positions = occurence.split(':')[-1].split(';')[:-1]
+
+                    motifs_positions += [find_intervals(
+                        motif, chaines[i], int(pos.split('-')[0])) for pos in positions]
 
 
 def treat_motif(dbn_path, out_path, motif_path, output_path):
@@ -169,13 +190,15 @@ def main():
                        for path in Path(sys.argv[1]).glob('**/*.out')]
 
     if xdbn:
-        dbn_pathlist = [str(path) for path in Path(sys.argv[2]).glob('**/*.xdbn')]
+        dbn_pathlist = [str(path)
+                        for path in Path(sys.argv[2]).glob('**/*.xdbn')]
     else:
-        dbn_pathlist = [str(path) for path in Path(sys.argv[2]).glob('**/*.dbn')]
+        dbn_pathlist = [str(path)
+                        for path in Path(sys.argv[2]).glob('**/*.dbn')]
 
     for out_path in tqdm(output_pathlist):
         name = out_path.split('/')[-1].split('.')[0]
-
+        #print(name)
         dbn_paths = list(filter(lambda x: name in x, dbn_pathlist))
         if len(dbn_paths) > 0:
             dbn_path = dbn_paths[0]
