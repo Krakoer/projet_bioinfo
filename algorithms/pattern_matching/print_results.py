@@ -104,13 +104,20 @@ def treat_xdbn(xdbn_path, out_path, motif_path, output_path):
     output = open(out_path)
     lignes_output = output.readline()
     output.close()
-
+    print(lignes_output)
+    
     if(any([contains_motif(l) for l in lignes_output])):
         xdbn = open(xdbn_path)
         xdbn_lignes = xdbn.readlines()
         xdbn.close()
 
         chaines = [parse_seq(xdbn_lignes[2+2*n]) for n in range((len(xdbn_lignes)-2)//2)]
+
+        motifs_file = open(motif_path)
+        motifs = motifs_file.readlines()
+        motifs_file.close()
+
+        print(sum([len(chaine) for chaine in chaines]) == len(lignes_output))
 
 
 def treat_motif(dbn_path, out_path, motif_path, output_path):
@@ -172,8 +179,10 @@ def main():
         dbn_paths = list(filter(lambda x: name in x, dbn_pathlist))
         if len(dbn_paths) > 0:
             dbn_path = dbn_paths[0]
-
-            treat_motif(dbn_path, out_path, sys.argv[3], sys.argv[4], xdbn)
+            if xdbn:
+                treat_xdbn(dbn_path, out_path, sys.argv[3], sys.argv[4])
+            else:
+                treat_motif(dbn_path, out_path, sys.argv[3], sys.argv[4])
         else:
             continue
 

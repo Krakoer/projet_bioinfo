@@ -295,7 +295,8 @@ int main(int argc, char *argv[]) {
         // Load the files
         input_file.open(input_files[f], ios::in);
 
-        string name = input_files[f].substr(input_files[f].size() - 8, 4);
+        string name;
+        name = xdbn ? input_files[f].substr(input_files[f].size() - 9, 4) : input_files[f].substr(input_files[f].size() - 8, 4);
         vector<vector<Node *>> trees = load_from_file(&input_file, 2, false, xdbn);
 
         input_file.close();
