@@ -186,7 +186,7 @@ vector<Node *> tree_from_string(string line, bool motif = false) {
     return res;
 }
 
-vector<vector<Node *>> load_from_file(ifstream *input_file, int line_offset = 0, bool motif = false) {
+vector<vector<Node *>> load_from_file(ifstream *input_file, int line_offset = 0, bool motif = false, bool xdbn = false) {
     /*
     Loads a set of tree from a given file. Each line is considered as a tree, and the optional
     line_offset parameter allows to skip lines at the begining of the file (header for example)
@@ -199,6 +199,8 @@ vector<vector<Node *>> load_from_file(ifstream *input_file, int line_offset = 0,
 
     while (getline(*input_file, line)) {
         trees.push_back(tree_from_string(line, motif));
+        if (xdbn)
+            getline(*input_file, line);
     }
 
     return trees;
@@ -243,13 +245,22 @@ void print_tree(Node *root) {
 
 int main(int argc, char *argv[]) {
     if (argc < 4) {
-        std::cout << "Usage : ./dotbpattern input_tree input_patterns output_path\n./dotbpattern --help for help\n";
+        std::cout << "Usage : ./dotbpattern input_tree input_patterns output_path [options]\n./dotbpattern --help for help\n";
 
         if (argc >= 2 && argv[1] == (string) "--help") {
             cout << "Input tree file must be a single line file with a secondary structure in dot bracket notation" << endl
-                 << "Input pattern file must contains one line per pattern, in a dot-brackets notation." << endl;
+                 << "Input pattern file must contains one line per pattern, in a dot-brackets notation." << endl
+                 << "Use --xdbn option to load xdbn instead of bdn" << endl;
         }
         return 1;
+    }
+
+    bool xdbn = false;
+    for (int i = 0; i < argc; i++) {
+        string arg = argv[i];
+        if (arg.find("--xdbn") != string::npos) {
+            xdbn = true;
+        }
     }
 
     string input_path, output_path, pattern_path;
@@ -285,8 +296,7 @@ int main(int argc, char *argv[]) {
         input_file.open(input_files[f], ios::in);
 
         string name = input_files[f].substr(input_files[f].size() - 8, 4);
-
-        vector<vector<Node *>> trees = load_from_file(&input_file, 2);
+        vector<vector<Node *>> trees = load_from_file(&input_file, 2, false, xdbn);
 
         input_file.close();
 
@@ -296,7 +306,7 @@ int main(int argc, char *argv[]) {
             vector<Node *> chains = trees[m];
             for (int c = 0; c < chains.size(); c++) {  // And for each model
                 Node *chain = chains[c];
-                cout << "Modèle N° " << m << "; Chaine n° " << c << endl;
+                //cout << "Modèle N° " << m << "; Chaine n° " << c << endl;
                 output_file << name << "-" << c << "-" << m << '\t';
 
                 for (int p = 0; p < patterns.size(); p++) {
