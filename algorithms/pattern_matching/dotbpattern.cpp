@@ -199,6 +199,8 @@ vector<vector<Node *>> load_from_file(ifstream *input_file, int line_offset = 0,
 
     while (getline(*input_file, line)) {
         trees.push_back(tree_from_string(line, motif));
+        if(!motif)
+            getline(*input_file, line);
     }
 
     return trees;
@@ -280,11 +282,11 @@ int main(int argc, char *argv[]) {
     }
 
     for (int f = 0; f < input_files.size(); f++) {
-        cout << "Processing " << input_files[f] << endl;
+        //cout << "Processing " << input_files[f] << endl;
         // Load the files
         input_file.open(input_files[f], ios::in);
 
-        string name = input_files[f].substr(input_files[f].size() - 8, 4);
+        string name = input_files[f].substr(input_files[f].size() - 9, 4);
 
         vector<vector<Node *>> trees = load_from_file(&input_file, 2);
 
@@ -296,7 +298,7 @@ int main(int argc, char *argv[]) {
             vector<Node *> chains = trees[m];
             for (int c = 0; c < chains.size(); c++) {  // And for each model
                 Node *chain = chains[c];
-                cout << "Modèle N° " << m << "; Chaine n° " << c << endl;
+                //cout << "Modèle N° " << m << "; Chaine n° " << c << endl;
                 output_file << name << "-" << c << "-" << m << '\t';
 
                 for (int p = 0; p < patterns.size(); p++) {
