@@ -9,7 +9,7 @@ from tqdm import tqdm
 colors = ["#FF0000", "#00FF00", "#0000FF"]
 
 
-def draw_structure(target, bps, path, varna):
+def draw_structure(target, bps, nonCanon, path, varna):
     '''
     target : dot bracket seq
     bps : [[[1, 2], [5, 10]], ]
@@ -34,7 +34,11 @@ def draw_structure(target, bps, path, varna):
 
     cmd += " -highlightRegion \"{}\"".format(";".join(auxhighlight))
 
-    # print(cmd)
+    auxbps = ["({},{}):color=#EE82EE".format(bp[0], bp[1]) for bp in nonCanon]
+    cmd += " -auxBPs \"{}\"".format(";".join(auxbps))
+
+
+    print(cmd)
     os.popen(cmd).close()
 
 
@@ -100,6 +104,60 @@ def parse_seq(seq):
 def contains_motif(line):
     return len(line.split('\t')) > 2
 
+def parseHeader(header):
+    if header == "":
+        return []
+    positions = header.strip().split(';')[:-1]
+    pairs = []
+
+    for position in positions:
+        pairs.append([int(position.split('-')[0]), int(position.split('-')[1])])
+    return pairs
+
+def whichChain(chains, position):
+    """
+    Given an array of array representing the subchains, it return the index of th position_th element
+    """
+    count = 0
+    for i in range(len(chains)):
+        for j in range(len(chains[i])):
+            count+=len(chains[i][j])
+            if(count >= position):
+                return i, j
+    return -1, -1
+
+def getStartNuc(chains, chainIndex, subIndex):
+    """
+    Returns the position of the first nuc of a subchain
+    """
+
+    res = 1
+    for i in range(len(chains)):
+        for j in range(len(chains[i])):
+            if i == chainIndex and j == subIndex:
+                return res-1
+            res+=len(chains[i][j])
+
+    return -1
+
+def breackNonCanonChains(chains, nonCanonPairs):
+    brokenPairs = {}
+
+    for pair in nonCanonPairs:
+        chain1 = whichChain(chains, pair[0]) #Check if in the same subchain
+        chain2 = whichChain(chains, pair[1])
+        if chain1 == chain2:
+            chainCoordinate = (chain1[0], chain1[1]) 
+            offset = getStartNuc(chains, chainCoordinate[0], chainCoordinate[1]) #Calculate the offset of the nuc indexes
+            offsetPair = [p - offset for p in pair]
+            if chainCoordinate in brokenPairs:
+                brokenPairs[chainCoordinate].append(offsetPair)
+            else:
+                brokenPairs[chainCoordinate] = [offsetPair]
+
+    return brokenPairs
+
+
 
 def treat_motif(dbn_path, out_path, motif_path, output_path):
     output = open(out_path)
@@ -109,19 +167,26 @@ def treat_motif(dbn_path, out_path, motif_path, output_path):
     if(any([contains_motif(l) for l in lignes_output])):
         dbn = open(dbn_path)
         temp = dbn.readlines()
-        structure = temp[2].strip()
+        header = temp[0]
+        nonCanonPairs = parseHeader(header)
+       
+        chaines = [parse_seq(temp[2*i].strip()) for i in range(1, len(temp)//2+1)]
         dbn.close()
-        chaines = parse_seq(structure)
+
+        brokenCanonPairs = breackNonCanonChains(chaines, nonCanonPairs)
+        print(brokenCanonPairs)
 
         motifs_file = open(motif_path)
         motifs = motifs_file.readlines()
         motifs_file.close()
 
-        assert(len(chaines) == len(lignes_output))
+        assert(sum([len(chaine) for chaine in chaines]) == len(lignes_output))
 
         for i, ligne in enumerate(lignes_output):
             if contains_motif(ligne):
                 name = ligne.strip().split('\t')[0]
+                subchain_number = int(name.split('-')[1])
+                chain_number = int(name.split('-')[2])
 
                 motifs_occurence = ligne.strip().split('\t')[1:]
                 motifs_positions = []
@@ -132,10 +197,10 @@ def treat_motif(dbn_path, out_path, motif_path, output_path):
                     positions = occurence.split(':')[-1].split(';')[:-1]
 
                     motifs_positions += [find_intervals(
-                        motif, chaines[i], int(pos.split('-')[0])) for pos in positions]
+                        motif, chaines[chain_number][subchain_number], int(pos.split('-')[0])) for pos in positions]
 
                 draw_structure(
-                    chaines[i], motifs_positions, f'{output_path}/{name}.png', '/home/axel/Téléchargements/VARNAv3-93.jar')
+                    chaines[chain_number][subchain_number], motifs_positions, brokenCanonPairs[(chain_number, subchain_number)], f'{output_path}/{name}.png', '/home/axel/Téléchargements/VARNAv3-93.jar')
 
 
 def main():
@@ -146,7 +211,7 @@ def main():
 
     output_pathlist = [str(path)
                        for path in Path(sys.argv[1]).glob('**/*.out')]
-    dbn_pathlist = [str(path) for path in Path(sys.argv[2]).glob('**/*.dbn')]
+    dbn_pathlist = [str(path) for path in Path(sys.argv[2]).glob('**/*.xdbn')]
 
     for out_path in tqdm(output_pathlist):
         name = out_path.split('/')[-1].split('.')[0]
@@ -159,6 +224,13 @@ def main():
         else:
             continue
 
+def test():
+    chains = [[".....", "....", "..."], ["...", "....", "....."]]
+    nonCanon = [[1, 4], [2, 5], [5, 6], [1, 13], [13, 15], [14, 20]]
+    brocken = breackNonCanonChains(chains, nonCanon)
+    print(getStartNuc(chains, 1, 0))
+
 
 if __name__ == '__main__':
     main()
+    # test()
