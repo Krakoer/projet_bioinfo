@@ -28,8 +28,8 @@ def fix_par(s):
 
 def isCanon(link):
     assert('bp' in link and 'LW' in link)
-    bp1 = link['bp'][0]
-    bp2 = link['bp'][2]
+    bp1 = link['bp'][0].capitalize()
+    bp2 = link['bp'][2].capitalize()
     try:
         answer = canonPairs[bp1] == bp2 and link["LW"] == 'cWW'
         return answer, True
@@ -74,8 +74,8 @@ def main():
                 log_file.write(f"{name}-Pair n°{i}"'\n')
                 continue
             if not canon:
-                pos1=re.findall('[0-9]+', pair['nt1'])[0]
-                pos2=re.findall('[0-9]+', pair['nt2'])[0]
+                pos1=re.findall('[0-9]+', pair['nt1'])[-1]
+                pos2=re.findall('[0-9]+', pair['nt2'])[-1]
                 nonCanonPairs.append([int(pos1), int(pos2)])
                 header += f"{pos1}-{pos2};"
 
@@ -102,7 +102,7 @@ def main():
 
 
 def test():
-    with open('../../RNA_files/json/1XJR.json') as f:
+    with open('../../RNA_files/json/5MQ0.json') as f:
         try:
             data = json.load(f)
         except:
@@ -117,12 +117,13 @@ def test():
             print("Errooooor")
             continue
         if not canon:
-            #print(f"Non canon pair found index {i+1}")
-            nonCanonPairs.append([re.findall('[0-9]+', pair['nt1'])[0], re.findall('[0-9]+', pair['nt2'])[0]])
+            print(f"Non canon pair found index {i+1}")
+            print(pair)
+            nonCanonPairs.append([re.findall('[0-9]+', pair['nt1'])[-1], re.findall('[0-9]+', pair['nt2'])[-1]])
     print(nonCanonPairs)
     
 
 
 if __name__ == '__main__':
-    main()
-    # test()
+    # main()
+    test()

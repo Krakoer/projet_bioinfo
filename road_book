@@ -1,0 +1,10 @@
+{'index': 1, 'nt1': 'B.G1', 'nt2': 'B.CFL25', 'bp': 'G-c', 'name': 'WC', 'Saenger': '19-XIX', 'LW': 'cWW', 'DSSR': 'cW-W'} : Non canon ou canon ? dans 3DD2
+
+
+5MQ0 : 449 nts alors que dans le json il y a 
+{'index': 62, 'nt1': '2.G140', 'nt2': '2.U1168', 'bp': 'G-U', 'name': 'Wobble', 'Saenger': '28-XXVIII', 'LW': 'cWW', 'DSSR': 'cW-W'}
+nt2 : 2.U1168
+
+>5MQ0 nts=449 [5MQ0] -- secondary structure derived by DSSR
+GUAUGUCUAAAGUUAU&GCUCUUAUUUACUAACAA&UAAGUGAUCUAGAAAG&ACGAAUCUCUUUGCCUUUUGGCUUAGAUCAAGUGUAGUAUCUGUUCUUU&GUAACAACUGAAAUGACCU&AGGCUCA&UUGUUAC&GGACGGGAAGAG&GAGACGUCGCGACCCUCGCA&GUCGUUCUUGACU&GGUCGCUUGAUGUUUCU&UCUUCCCGUUC&GUUCGCGAAG&CUUCGUGGACAUUUGGUCAAUUUGAAACAAUACAGAGAUGAUCAGCAGUUCCCCUGCAUAAGGAUGAACCGUUUUACAAAGAGAUUUAU&CAGCUUUACAGAUCAAUGGCGGAGGGAGGUCAACAUCAAGAACUGUGGGC&GCCUAUAGAACUUAUAACGAACAUGGUUCUUGCCUUUUACCAGAACCAUCCGGGUGUUGUCUCCAUAGAAACAGGUAAAGCUGU&AUUUUUU&UUU&g
+...[[[.[........&.....[[..[[[[[.[[.&............{{{.&(.((((((((((........(((..((((...]]]]]]]..]]......&(((((((......((((((&))).)))&)))))))&(((((((((((.&((((((((((((.((.....&((((....)))).&))))))..)))))))).&)))))))))))&((((((((((&))))))))))...................].]]].....))))))).(((.((((.....)))..))))........)))))))))).)&(((((((((.......(.......(((((.(((((((.....((((((((&)))))))).........((...((((((((.(...}}}.).)))))))).))))))))))))))......)...))))))))).&.......&...&.
