@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 import re
 
-canonPairs = {'A': 'U', 'U': 'A', 'G': 'C', 'C': 'G'}
+canonPairs = {'A': ['U'], 'U': ['A', 'G'], 'G': ['C', 'U'], 'C': ['G']}
 
 
 def fix_par(s):
@@ -31,7 +31,7 @@ def isCanon(link):
     bp1 = link['bp'][0].capitalize()
     bp2 = link['bp'][2].capitalize()
     try:
-        answer = canonPairs[bp1] == bp2 and link["LW"] == 'cWW'
+        answer = bp2 in canonPairs[bp1] and link["LW"] == 'cWW'
         return answer, True
     except:
         return False, False
@@ -47,7 +47,7 @@ def main():
 
     for json_path in tqdm(json_pathlist):
         name = json_path.split('/')[-1].split('.')[0]
-        #print(name)
+        print(name)
         with open(json_path) as f:
             try:
                 data = json.load(f)
@@ -58,44 +58,49 @@ def main():
         f.close()
         out_file = open(sys.argv[2]+"/"+name+".xdbn", "w")
 
-        #out_file.write("HEAD_WILL_GO_HERE\n")
-
         try:
-            pairs= data["pairs"]
+            pairs = data["pairs"]
         except:
-            log_file.write(name+"-Pairs not in keys"'\n')
+            log_file.write(name+"-pairs not in keys"'\n')
             continue
 
-        nonCanonPairs = []
+        try:
+            chains = {chain_name[-1] : [chain['bseq'], chain['sstr']] for chain_name, chain in data['chains'].items()}
+        except:
+            log_file.write(name+"-Pb while parsing chains"'\n')
+            continue
+
+        try:
+            nts = {nt['nt_id'] : [nt['chain_name'], nt['index_chain']] for nt in data['nts']}
+        except:
+            log_file.write(name+"-Pb while parsing nts"'\n')
+            continue
+
         header = ""
         for i, pair in enumerate(pairs):
             canon, success = isCanon(pair)
             if(not success):
-                log_file.write(f"{name}-Pair n°{i}"'\n')
+                log_file.write(f"{name}-Error at pair index {i+1}"'\n')
                 continue
             if not canon:
-                pos1=re.findall('[0-9]+', pair['nt1'])[-1]
-                pos2=re.findall('[0-9]+', pair['nt2'])[-1]
-                nonCanonPairs.append([int(pos1), int(pos2)])
-                header += f"{pos1}-{pos2};"
+                try:
+                    id_nt1 = pair['nt1']
+                    id_nt2 = pair['nt2']
+                    nt1 = nts[id_nt1]
+                    nt2 = nts[id_nt2]
+                    chain_nb1 = list(chains.keys()).index(nt1[0])+1
+                    chain_nb2 = list(chains.keys()).index(nt2[0])+1
+                    header += f"{chain_nb1}.{nt1[1]}-{chain_nb2}.{nt2[1]};"
+                except ValueError:
+                    continue
 
         out_file.write(header+'\n')
                 
-
-        if('dbn' in data):
-            chains = list(data['dbn'].values())[1:]
-
-            for chain_obj in chains:
-                seq = chain_obj['bseq']
-                db_string = chain_obj['sstr']
-
-                out_file.write(seq)
-                out_file.write('\n')
-                out_file.write(fix_par(db_string))
-                out_file.write('\n')
-
-        else:
-            log_file.write(name+'\n')
+        for chain in chains.values():
+            out_file.write(chain[0])
+            out_file.write('\n')
+            out_file.write(fix_par(chain[1]))
+            out_file.write('\n')
 
         out_file.close()
     log_file.close()
@@ -125,5 +130,5 @@ def test():
 
 
 if __name__ == '__main__':
-    # main()
-    test()
+    main()
+    # test()

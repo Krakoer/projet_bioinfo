@@ -214,6 +214,37 @@ def treat_motif(dbn_path, out_path, motif_path, output_path, log_file):
                 except KeyError:
                     log_file.write(f"{name} {brokenCanonPairs}\n")
 
+def find_nonCanon(xdbn_path, out_path, motif_path, distance):
+    """
+    Return if there is any non canon interaction within the given distance from the motifs
+    """
+
+    # First read the output 
+    output = open(out_path)
+    lignes_output = output.readlines()
+    output.close()
+
+    # Then check whether there is any morif 
+    if(any([contains_motif(l) for l in lignes_output])):
+        # if there is, parse the xbdn file
+        xdbn = open(xdbn_path)
+        temp = xdbn.readlines()
+        header = temp[0]
+        nonCanonPairs = parseHeader(header)
+
+        chaines = [parse_seq(temp[2*i].strip())
+                   for i in range(1, len(temp)//2+1)]
+        xdbn.close()
+
+        brokenCanonPairs = breackNonCanonChains(chaines, nonCanonPairs)
+
+        motifs_file = open(motif_path)
+        motifs = motifs_file.readlines()
+        motifs_file.close()
+
+        assert(sum([len(chaine) for chaine in chaines]) == len(lignes_output))
+
+
 
 
 def main():
