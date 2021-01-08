@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <ctype.h>
 
 using namespace std;
 
@@ -158,7 +159,7 @@ vector<Node *> tree_from_string(string line, bool motif = false) {
         for (int i = 0; i < str.length(); i++) {  // Go through the string
             char car = str[i];
             if (car != '&') {                                                   // & are ignored for now
-                if (car == '.') {                                               // If it is an unpaired base
+                if (car == '.' || isalpha(car)) {                                               // If it is an unpaired base
                     cur_node->children.push_back(newNode(false, cur_node, i));  // Push an unpaired base Node
                 } else if (car == '(') {                                        // If it is a new base paired create a new Node and push it
                     Node *child = newNode(true, cur_node, i);                   //
@@ -243,6 +244,18 @@ void print_tree(Node *root) {
     }
 }
 
+vector<string> load_lines(ifstream* file){
+    vector<string> res;
+    string line;
+
+    while(getline(*file, line)){
+        res.push_back(line);
+        cout << line << endl;
+    }
+
+    return res;
+}
+
 int main(int argc, char *argv[]) {
     if (argc < 4) {
         std::cout << "Usage : ./dotbpattern input_tree input_patterns output_path\n./dotbpattern --help for help\n";
@@ -263,10 +276,13 @@ int main(int argc, char *argv[]) {
     output_path = argv[3];
 
     vector<string> input_files;
-
     pattern_file.open(pattern_path, ios::in);
     vector<vector<Node *>> patterns = load_from_file(&pattern_file, 0, true);
     pattern_file.close();
+    pattern_file.open(pattern_path, ios::in);
+    vector<string> pattern_dbn = load_lines(&pattern_file);
+    pattern_file.close();
+    
 
     boost::filesystem::path directory(argv[1]);
     if (boost::filesystem::exists(directory) && boost::filesystem::is_directory(directory)) {
@@ -305,7 +321,7 @@ int main(int argc, char *argv[]) {
                     vector<array<int, 2>> positions = find_pattern(chain, patterns[p][0]);  // Considering pattenrs have 1 chaine only
                     if (positions.size() > 0) {
                         // ex : 99:12-19;58-75;
-                        output_file << p << ':';
+                        output_file << pattern_dbn[p] << ':';
                         cout << "Pattern n° " << p << " found at pos ";
                         for (int pos = 0; pos < positions.size(); pos++) {
                             output_file << positions[pos][0] << '-' << positions[pos][1] << ';';

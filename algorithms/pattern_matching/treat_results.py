@@ -8,6 +8,32 @@ from tqdm import tqdm
 
 colors = ["#FF0000", "#00FF00", "#0000FF"]
 
+def parse_header(header):
+    if header == "":
+        return []
+    positions = header.strip().split(';')[:-1]
+    pairs = []
+
+    for position in positions:
+        nucs = position.split('-')
+        chain1 = nucs[0].split('.')[0]
+        pos1 = nucs[0].split('.')[1]
+        chain2 = nucs[1].split('.')[0]
+        pos2 = nucs[1].split('.')[1]
+        pairs.append([[chain1, pos1], [chain2, pos2]])
+    return pairs
+
+def parse_xdbn(xdbn_path):
+    xdbn_file = open(xdbn_path, 'r')
+    lines = xdbn_file.readlines()
+    header = lines[0]
+    nonCanonPairs = parse_header(header)
+
+    sequences = [lines[2*i+1] for i in range(len(lines)//2)]
+    dbns = [lines[2*i] for i in range(1, len(lines)//2+1)]
+
+    return nonCanonPairs, sequences, dbns
+    
 
 def draw_structure(target, bps, nonCanon, path, varna):
     '''
@@ -103,17 +129,6 @@ def parse_seq(seq):
 def contains_motif(line):
     return len(line.split('\t')) > 2
 
-
-def parseHeader(header):
-    if header == "":
-        return []
-    positions = header.strip().split(';')[:-1]
-    pairs = []
-
-    for position in positions:
-        pairs.append([int(position.split('-')[0]),
-                      int(position.split('-')[1])])
-    return pairs
 
 
 def whichChain(chains, position):

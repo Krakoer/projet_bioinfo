@@ -1,54 +1,98 @@
-chains = {
-    "chain_X": {
-      "num_nts": 16,
-      "bseq": "TGAGGTAGTAGGTTGT",
-      "sstr": ".((((((((((((((.",
-      "form": "...AAB.AA...B.B-",
-      "helical_rise": 2.916,
-      "helical_rise_std": 1.408,
-      "helical_axis": [
-        -0.993,
-        0.075,
-        -0.09
-      ],
-      "point1": [
-        10.327,
-        -25.34,
-        -18.56
-      ],
-      "point2": [
-        -33.835,
-        -22.004,
-        -22.563
-      ],
-      "num_chars": 46,
-      "suite": "T!!G!!A1aG1aG1bT!!A!!G1aT1cA!!G!!G!!T!!T!!G!!T"
-    },
-    "chain_Y": {
-      "num_nts": 14,
-      "bseq": "CAACCUACUACCUC",
-      "sstr": "))))))))))))))",
-      "form": "AAAAAAAAAAAAA-",
-      "helical_rise": 3.177,
-      "helical_rise_std": 0.452,
-      "helical_axis": [
-        0.961,
-        -0.011,
-        -0.275
-      ],
-      "point1": [
-        -28.677,
-        -24.495,
-        -15.235
-      ],
-      "point2": [
-        11.26,
-        -24.969,
-        -26.68
-      ],
-      "num_chars": 40,
-      "suite": "C__A1aA1fC1aC1aU1aA1cC1aU1aA1cC!!C1LU1aC"
-    }
-  }
-new_chains = chains = {chain_name[-1] : [chain['bseq'], chain['sstr']] for chain_name, chain in chains.items()}
-print(list(new_chains.keys()).index('X'))
+dbns = ["(().&.)", ".............", "......&.....&...."]
+nonCanonPairs_header = [[[1, 2], [1, 4]], [[1, 3], [1, 6]], [[1, 5], [2, 10]],[[3, 2], [3, 14]]]
+
+def fix_parenthesis(s):
+    """
+    Fix the parenthesis notation if broken
+    """
+    pstack = []
+    fixed = [c for c in s]
+
+    for i, c in enumerate(s):
+        if c == '(':
+            pstack.append(i)
+        elif c == ')':
+            if len(pstack) == 0:
+                fixed[i] = '.'
+            else:
+                pstack.pop()
+
+    while len(pstack) > 0:
+        fixed[pstack.pop()] = '.'
+
+    return ''.join(fixed)
+    
+def find_nt_in_chain(chain, pos, nts):
+  for i, nt in enumerate(nts):
+    if(nt['chain'] == chain and nt['pos_chain'] == pos):
+      return i
+
+def break_chain(chain, chain_id, nts):
+  subs = [] # Array to store all subchains in db notation
+  sub = "" # Store subchains
+  subs_count = 1 # Counts the number of subchains
+  pos_count = 1 # Count the overall position in the chain (used to find nucleotide)
+  sub_pos = 1 # Position in the current subchain
+  for c in chain:
+    if c == '&':
+      subs.append(fix_parenthesis(sub))
+      subs_count +=1
+      sub = ""
+      sub_pos = 1
+    else:
+      nts[find_nt_in_chain(chain_id, pos_count, nts)]['subchain'] = subs_count
+      nts[find_nt_in_chain(chain_id, pos_count, nts)]['pos_sub'] = sub_pos
+      sub += c
+      sub_pos+=1
+      pos_count+=1
+
+  subs.append(fix_parenthesis(sub))
+
+  return subs
+
+
+def parse_header(header):
+    if header == "":
+        return []
+    positions = header.strip().split(';')[:-1]
+    pairs = []
+
+    for position in positions:
+        nucs = position.split('-')
+        chain1 = nucs[0].split('.')[0]
+        pos1 = nucs[0].split('.')[1]
+        chain2 = nucs[1].split('.')[0]
+        pos2 = nucs[1].split('.')[1]
+        pairs.append([[chain1, pos1], [chain2, pos2]])
+    return pairs
+
+def create_nts(dbns):
+    """
+    Create a list of nts represented as {chain subchain pos} given a list of chains in db notation
+    """
+    nts = []
+    
+    for chain_num, chain in enumerate(dbns):
+      pos = 1
+      for c in chain:
+        if(c != '&'):
+          nts.append({'chain': chain_num+1, 'subchain': -1, 'pos_chain': pos, 'pos_sub': -1})
+          pos+=1
+    return nts
+
+
+nts = create_nts(dbns)
+
+nonCanonPairs = []
+for pair in nonCanonPairs_header:
+    nonCanonPairs.append((find_nt_in_chain(pair[0][0], pair[0][1], nts), find_nt_in_chain(pair[1][0], pair[1][1], nts)))
+
+chains = [] 
+for i, ligne in enumerate(dbns):
+    chains.append(break_chain(ligne, i+1, nts))
+
+
+for pair in nonCanonPairs:
+  print(f"{nts[pair[0]]} - {nts[pair[1]]}")
+
+  
