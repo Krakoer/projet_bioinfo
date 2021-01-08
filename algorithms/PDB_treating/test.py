@@ -1,3 +1,5 @@
+import re
+
 dbns = ["(().&.)", ".............", "......&.....&...."]
 nonCanonPairs_header = [[[1, 2], [1, 4]], [[1, 3], [1, 6]], [[1, 5], [2, 10]],[[3, 2], [3, 14]]]
 
@@ -92,7 +94,28 @@ for i, ligne in enumerate(dbns):
     chains.append(break_chain(ligne, i+1, nts))
 
 
-for pair in nonCanonPairs:
-  print(f"{nts[pair[0]]} - {nts[pair[1]]}")
+# for pair in nonCanonPairs:
+#   print(f"{nts[pair[0]]} - {nts[pair[1]]}")
 
-  
+def parse_output(output_path):
+    output_file = open(output_path, 'r')
+    lines = output_file.readlines()
+    output_file.close()
+
+    res = {}
+
+    for line in lines:
+        if(len(line.split('\t')) > 2):
+            head = line.split('\t')[0]
+            chain_nb = int(head.split('-')[1])
+            sub_nb = int(head.split('-')[2])
+            res[(chain_nb, sub_nb)] = []
+            motifs_found = line.split('\t')[1:-1]
+            for motif_found in motifs_found:
+                motif = motif_found.split(':')[0]
+                positions_string = motif_found.split(':')[-1]
+                positions = [int(num) for num in positions_string.split(';')[:-1]]
+                res[(chain_nb, sub_nb)].append({'motif': motif, 'positions': positions})
+    return res
+
+print(parse_output('./test.out'))

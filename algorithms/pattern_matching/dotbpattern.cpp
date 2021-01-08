@@ -315,7 +315,7 @@ int main(int argc, char *argv[]) {
             for (int c = 0; c < chains.size(); c++) {  // And for each model
                 Node *chain = chains[c];
                 //cout << "Modèle N° " << m << "; Chaine n° " << c << endl;
-                output_file << name << "-" << c << "-" << m << '\t';
+                output_file << name << "-" << c+1 << "-" << m+1 << '\t';
 
                 for (int p = 0; p < patterns.size(); p++) {
                     vector<array<int, 2>> positions = find_pattern(chain, patterns[p][0]);  // Considering pattenrs have 1 chaine only
@@ -324,7 +324,7 @@ int main(int argc, char *argv[]) {
                         output_file << pattern_dbn[p] << ':';
                         cout << "Pattern n° " << p << " found at pos ";
                         for (int pos = 0; pos < positions.size(); pos++) {
-                            output_file << positions[pos][0] << '-' << positions[pos][1] << ';';
+                            output_file << positions[pos][0]+1 << ';';
                             cout << positions[pos][0] << " ";
                         }
                         output_file << "\t";
