@@ -66,7 +66,6 @@ def draw_structure(target, bps, nonCanon, path, varna):
     print(cmd)
     os.popen(cmd).close()
 
-
 def find_matching_par(start, seq):
     count = 0
 

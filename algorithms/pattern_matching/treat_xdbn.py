@@ -4,6 +4,8 @@ from pathlib import Path
 from tqdm import tqdm
 import re
 
+debug = True
+
 def draw_structure(target, intervals, nonCanon, path, varna):
     '''
     target : dot bracket seq
@@ -14,10 +16,11 @@ def draw_structure(target, intervals, nonCanon, path, varna):
     if not Path(varna).exists():
         print("Cannot find {}".format(varna))
         return
-    seq = " " * len(target)
 
-    cmd = "java -cp {} fr.orsay.lri.varna.applications.VARNAcmd -sequenceDBN \"{}\" -structureDBN \"{}\" -o {}".format(
-        varna, seq, target, path)
+    seq = " "*len(target.strip())
+
+    cmd = "java -cp {} fr.orsay.lri.varna.applications.VARNAcmd -structureDBN \"{}\" -sequence-o {}".format(
+        varna, seq, target.strip(), path)
     cmd += " -bpStyle simple -algorithm radiate -resolution 6.0"
 
     auxhighlight = []
@@ -33,7 +36,8 @@ def draw_structure(target, intervals, nonCanon, path, varna):
     auxbps = ["({},{}):color=#EE82EE".format(bp[0], bp[1]) for bp in nonCanon]
     cmd += " -auxBPs \"{}\"".format(";".join(auxbps))
 
-    print(cmd)
+    if(debug):
+        print(cmd)
     os.popen(cmd).close()
 
 def fix_parenthesis(s):
@@ -61,14 +65,14 @@ def fix_parenthesis(s):
 def find_matching_par(start, seq):
     count = 0
 
-    for i in range(start, len(seq)):
+    for i in range(start-1, len(seq)):
         if seq[i] == '(':
             count += 1
         elif seq[i] == ')':
             count -= 1
 
         if(count == 0):
-            return i
+            return i+1
 
 
 def find_nt_in_chain(chain, pos, nts):
@@ -137,10 +141,10 @@ def parse_xdbn(xdbn_path):
     xdbn_file = open(xdbn_path, 'r')
     lines = xdbn_file.readlines()
     xdbn_file.close()
-    header = lines[0]
+    header = lines[0].strip()
     nonCanonPairs_header = parse_header(header)
 
-    dbns = [lines[2*i] for i in range(1, len(lines)//2+1)]
+    dbns = [lines[2*i].strip() for i in range(1, len(lines)//2+1)]
     nts = create_nts(dbns)
 
     nonCanonPairs = []
@@ -192,17 +196,33 @@ def find_intervals(pattern, sequence, start):
 
             intervals.append([start_sequence, pos_sequence])
             pos_sequence = find_matching_par(pos_sequence, sequence)
+            
             start_sequence = pos_sequence
 
         else:
             pos_sequence += 1
 
-    intervals.append([start_sequence, pos_sequence-2])
+    intervals.append([start_sequence, pos_sequence-1])
     return intervals
+
+def check_nonCanon(nonCanon, intervals, log, name):
+    for i in range(len(intervals)):
+        for j in range(len(intervals[i])): # For each occurence of a motif
+            res = False
+            for k in range(len(intervals[i][j])): 
+                inter = intervals[i][j][k]
+                for nt1, nt2 in nonCanon:
+                    if nt1 >= inter[0] and nt1 <= inter[1] or nt2 >= inter[0] and nt2 <= inter[1]:
+                        res = True
+            if not res:
+                log.write(f'Motif without nonCanon found in RNA {name}\n')
+
+                
 
 def treat_ARN(name, out_path, xdbn_path, output_path):
     chains, nts, nonCanonPairs = parse_xdbn(xdbn_path)
     output_data = parse_output(out_path)
+    log = open('motif_without_canon.txt', 'a')
 
     for chain_subchain, motifs_data in output_data.items():
         chain = chains[chain_subchain[0]-1][chain_subchain[1]-1] # The chain in which the motifs occur
@@ -213,38 +233,63 @@ def treat_ARN(name, out_path, xdbn_path, output_path):
             inter_motif = []
             for pos in positions:
                 inter_motif.append(find_intervals(motif, chain, pos))
-                print(inter_motif)
             intervals.append(inter_motif)
 
         nonCanonPairs_subchain = [(nts[nt_pair[0]]['pos_sub'], nts[nt_pair[1]]['pos_sub']) for nt_pair in nonCanonPairs if nts[nt_pair[0]]['chain'] == chain_subchain[0] and nts[nt_pair[0]]['subchain'] == chain_subchain[1] and nts[nt_pair[1]]['chain'] == chain_subchain[0] and nts[nt_pair[1]]['subchain'] == chain_subchain[1]]
         
-        draw_structure(chain, intervals, nonCanonPairs_subchain,  './test.png', '/home/axel/Téléchargements/VARNAv3-93.jar')
+        #draw_structure(chain, intervals, nonCanonPairs_subchain,  f'{output_path}/{name}.png', '/home/axel/Téléchargements/VARNAv3-93.jar')
+        check_nonCanon(nonCanonPairs_subchain, intervals, log, name)
+        log.close()
 
 def test():
-    out_path = '../../RNA_files/outputs/1AQO.out'
-    xdbn_path = "../../RNA_files/xdbn/1AQO.xdbn"
-    name = "1AQO"
-    treat_ARN(name, out_path, xdbn_path, "bite")
+    # out_path = '../../RNA_files/outputs/1AQO.out'
+    # xdbn_path = "../../RNA_files/xdbn/1AQO.xdbn"
+    # name = "1AQO"
+    # treat_ARN(name, out_path, xdbn_path, "bite")
+    chain = ".....(.((..(((...)..).)..))..."
+    motif = "((*)..)"
+    print(find_matching_par(14, chain))
+    print(find_intervals(motif, chain, 13))
+
+def is_empty(path):
+    f = open(path, 'r')
+    return len(f.readlines()) == 0
 
 def main():
     if len(sys.argv) < 4:
         print(f"Usage : python {sys.argv[0]} output_files xdbn_files output_path")
+        return 
+    
+    already_treated = []
+    if len(sys.argv) == 5:
+        path_already = sys.argv[4]
+        already_treated = [str(path).split('/')[-1].split('.')[0] for path in Path(path_already).glob('**/*.png')]
+        
     output_pathlist = [str(path)
                        for path in Path(sys.argv[1]).glob('**/*.out')]
     xdbn_pathlist = [str(path) for path in Path(sys.argv[2]).glob('**/*.xdbn')]
     log_file = open('./log.txt', 'w')
+    print(len(already_treated))
 
     for out_path in tqdm(output_pathlist):
         name = out_path.split('/')[-1].split('.')[0]
+        if name in already_treated:
+            continue
+        if(debug):
+            print(name)
+        if(is_empty(out_path)):
+            continue
 
         xdbn_paths = list(filter(lambda x: name in x, xdbn_pathlist))
         if len(xdbn_paths) > 0:
             xdbn_path = xdbn_paths[0]
-
+            if(is_empty(xdbn_path)):
+                continue
             treat_ARN(name, out_path, xdbn_path, sys.argv[3])
         else:
             continue
     log_file.close()
 
 if __name__ == '__main__':
-    test()
+    # test()
+    main()
