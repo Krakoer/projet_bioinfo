@@ -19,7 +19,7 @@ def draw_structure(target, intervals, nonCanon, path, varna):
 
     seq = " "*len(target.strip())
 
-    cmd = "java -cp {} fr.orsay.lri.varna.applications.VARNAcmd -structureDBN \"{}\" -sequence-o {}".format(
+    cmd = "java -cp {} fr.orsay.lri.varna.applications.VARNAcmd -sequenceDBN \"{}\" -structureDBN \"{}\" -o {}".format(
         varna, seq, target.strip(), path)
     cmd += " -bpStyle simple -algorithm radiate -resolution 6.0"
 
@@ -149,6 +149,8 @@ def parse_xdbn(xdbn_path):
 
     nonCanonPairs = []
     for pair in nonCanonPairs_header:
+        if find_nt_in_chain(pair[0][0], pair[0][1], nts) is None or find_nt_in_chain(pair[1][0], pair[1][1], nts) is None:
+            continue
         nonCanonPairs.append((find_nt_in_chain(pair[0][0], pair[0][1], nts), find_nt_in_chain(pair[1][0], pair[1][1], nts)))
 
     chains = []
@@ -223,7 +225,6 @@ def treat_ARN(name, out_path, xdbn_path, output_path):
     chains, nts, nonCanonPairs = parse_xdbn(xdbn_path)
     output_data = parse_output(out_path)
     log = open('motif_without_canon.txt', 'a')
-
     for chain_subchain, motifs_data in output_data.items():
         chain = chains[chain_subchain[0]-1][chain_subchain[1]-1] # The chain in which the motifs occur
         intervals = []
@@ -237,19 +238,19 @@ def treat_ARN(name, out_path, xdbn_path, output_path):
 
         nonCanonPairs_subchain = [(nts[nt_pair[0]]['pos_sub'], nts[nt_pair[1]]['pos_sub']) for nt_pair in nonCanonPairs if nts[nt_pair[0]]['chain'] == chain_subchain[0] and nts[nt_pair[0]]['subchain'] == chain_subchain[1] and nts[nt_pair[1]]['chain'] == chain_subchain[0] and nts[nt_pair[1]]['subchain'] == chain_subchain[1]]
         
-        #draw_structure(chain, intervals, nonCanonPairs_subchain,  f'{output_path}/{name}.png', '/home/axel/Téléchargements/VARNAv3-93.jar')
+        draw_structure(chain, intervals, nonCanonPairs_subchain,  f'{output_path}/{name}-{chain_subchain[0]}-{chain_subchain[1]}.png', '/home/axel/Téléchargements/VARNAv3-93.jar')
         check_nonCanon(nonCanonPairs_subchain, intervals, log, name)
-        log.close()
+    log.close()
 
 def test():
-    # out_path = '../../RNA_files/outputs/1AQO.out'
-    # xdbn_path = "../../RNA_files/xdbn/1AQO.xdbn"
-    # name = "1AQO"
-    # treat_ARN(name, out_path, xdbn_path, "bite")
-    chain = ".....(.((..(((...)..).)..))..."
-    motif = "((*)..)"
-    print(find_matching_par(14, chain))
-    print(find_intervals(motif, chain, 13))
+    out_path = '../../RNA_files/outputs/1AQO.out'
+    xdbn_path = "../../RNA_files/xdbn/1AQO.xdbn"
+    name = "1AQO"
+    treat_ARN(name, out_path, xdbn_path, "bite")
+    # chain = ".....(.((..(((...)..).)..))..."
+    # motif = "((*)..)"
+    # print(find_matching_par(14, chain))
+    # print(find_intervals(motif, chain, 13))
 
 def is_empty(path):
     f = open(path, 'r')
