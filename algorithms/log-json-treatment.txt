@@ -1,0 +1,107 @@
+json_files/2KYE.json-Error at pair index 6 : must be a DNA strand
+json_files/5GXH.json-pairs not in keys
+json_files/2JLU.json-pairs not in keys
+json_files/6PC7.json-Error at pair index 415 : must be a DNA strand
+json_files/6PC7.json-Error at pair index 516 : must be a DNA strand
+json_files/6PC7.json-Error at pair index 995 : must be a DNA strand
+json_files/6PC7.json-Error at pair index 1221 : must be a DNA strand
+json_files/6PC7.json-Error at pair index 1244 : must be a DNA strand
+json_files/4V1M.json-Error at pair index 4 : must be a DNA strand
+json_files/4V1M.json-Error at pair index 7 : must be a DNA strand
+json_files/4V1M.json-Error at pair index 8 : must be a DNA strand
+json_files/6H5S.json-pairs not in keys
+json_files/5NO2.json-Error at pair index 287 : must be a DNA strand
+json_files/5NO2.json-Error at pair index 288 : must be a DNA strand
+json_files/4EJT.json-pairs not in keys
+json_files/3ND3.json-pairs not in keys
+json_files/1GSG.json-pairs not in keys
+json_files/6LTU.json-Error at pair index 38 : must be a DNA strand
+json_files/6LTU.json-Error at pair index 39 : must be a DNA strand
+json_files/6LTU.json-Error at pair index 40 : must be a DNA strand
+json_files/6A4E.json-pairs not in keys
+json_files/6J4W.json-Error at pair index 11 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 17 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 23 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 36 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 40 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 41 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 45 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 48 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 57 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 59 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 68 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 69 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 80 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 87 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 89 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 98 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 99 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 100 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 101 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 118 : must be a DNA strand
+json_files/6J4W.json-Error at pair index 119 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 6 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 11 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 12 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 13 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 15 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 16 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 21 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 22 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 23 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 29 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 31 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 32 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 33 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 34 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 35 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 36 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 43 : must be a DNA strand
+json_files/6PMJ.json-Error at pair index 44 : must be a DNA strand
+json_files/2FTC.json-pairs not in keys
+json_files/5T8Y.json-pairs not in keys
+json_files/5IYD.json-Error at pair index 11 : must be a DNA strand
+json_files/5IYD.json-Error at pair index 13 : must be a DNA strand
+json_files/5IYD.json-Error at pair index 25 : must be a DNA strand
+json_files/5IYD.json-Error at pair index 33 : must be a DNA strand
+json_files/5IYD.json-Error at pair index 41 : must be a DNA strand
+json_files/5IYD.json-Error at pair index 58 : must be a DNA strand
+json_files/5IYD.json-Error at pair index 62 : must be a DNA strand
+json_files/5IYD.json-Error at pair index 70 : must be a DNA strand
+json_files/5KI6.json-pairs not in keys
+json_files/2JLW.json-pairs not in keys
+json_files/5K77.json-pairs not in keys
+json_files/5H1L.json-pairs not in keys
+json_files/1EHZ.json-Error at pair index 34 : must be a DNA strand
+json_files/5EEZ.json-pairs not in keys
+json_files/4JZV.json-pairs not in keys
+json_files/5TDJ.json-pairs not in keys
+json_files/5EF3.json-pairs not in keys
+json_files/6C6S.json-Error at pair index 5 : must be a DNA strand
+json_files/6C6S.json-Error at pair index 19 : must be a DNA strand
+json_files/6C6S.json-Error at pair index 24 : must be a DNA strand
+json_files/6C6S.json-Error at pair index 28 : must be a DNA strand
+json_files/6C6S.json-Error at pair index 30 : must be a DNA strand
+json_files/3WZI.json-pairs not in keys
+json_files/6LLB.json-pairs not in keys
+json_files/6PCR.json-Error at pair index 414 : must be a DNA strand
+json_files/6PCR.json-Error at pair index 517 : must be a DNA strand
+json_files/6PCR.json-Error at pair index 1002 : must be a DNA strand
+json_files/6PCR.json-Error at pair index 1218 : must be a DNA strand
+json_files/6PCR.json-Error at pair index 1240 : must be a DNA strand
+json_files/3O6E.json-pairs not in keys
+json_files/6K4S.json-Error at pair index 43 : must be a DNA strand
+json_files/1K1G.json-pairs not in keys
+json_files/3M3Y.json-Error at pair index 13 : must be a DNA strand
+json_files/3M3Y.json-Error at pair index 19 : must be a DNA strand
+json_files/4UFT.json-pairs not in keys
+json_files/5HAB.json-pairs not in keys
+json_files/5IPN.json-Error at pair index 5 : must be a DNA strand
+json_files/5IPN.json-Error at pair index 7 : must be a DNA strand
+json_files/5IPN.json-Error at pair index 10 : must be a DNA strand
+json_files/5IPN.json-Error at pair index 12 : must be a DNA strand
+json_files/5IPN.json-Error at pair index 22 : must be a DNA strand
+json_files/4F3T.json-pairs not in keys
+json_files/5EEW.json-pairs not in keys
+json_files/6YAL.json-Error at pair index 568 : must be a DNA strand
+json_files/4ADX.json-pairs not in keys

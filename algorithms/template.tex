@@ -1,0 +1,38 @@
+% PGF style template to be used in the ktikz program
+\documentclass{standalone}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{amsmath,amssymb}
+\usepackage{relsize}
+\usepackage{graphicx}
+\usepackage{xspace}
+\usepackage{xcolor}
+\usepackage{xifthen}
+\usepackage{relsize}
+\usepackage{array}
+
+\usepackage[T1]{fontenc}
+\usepackage{helvet}
+
+
+\usepackage{tikz}
+
+\usetikzlibrary{positioning}
+\usetikzlibrary{matrix}
+
+\begin{document}
+	%%% Tu peux juste remplacer le contenu des macros...
+	\newcommand{\PDBID}{%ID%}%
+	\newcommand{\SEQUENCE}{%SEQ%}%
+	\newcommand{\STRUCTURE}{%DBN%}%
+	%%% ...ou jouer avec les lignes ci-dessous si tu te sens d'humeur joueuse ! :)
+	\begin{tikzpicture}
+		\node (varnaimg) {
+			\includegraphics[width=0.7\linewidth]{%IMG%}
+		};
+		\matrix[matrix of nodes, below =0 of varnaimg,nodes={anchor=west,font=\sf\relsize{+1}},inner sep=0,row sep=5pt,column sep=5pt] {
+			Id : & \PDBID\\
+			Seq: & \tt \SEQUENCE\\
+			     & \tt \STRUCTURE\\
+				}; 
+	\end{tikzpicture}
+\end{document}
